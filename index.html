@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BW Parastatal | Connecting State-Owned Enterprises</title>
+    <meta name="description" content="BW Parastatal is a digital platform that connects Botswana???s state-owned enterprises with the public, stakeholders, and potential partners.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container grid grid-cols-2" style="align-items: center;">
+            <div class="hero-content">
+                <span style="color: var(--primary-light); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 1rem;">Welcome to the Future</span>
+                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--secondary);">Connecting Botswana's <span style="color: var(--primary);">Parastatals</span> to the Public.</h1>
+                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px;">
+                    A central digital hub for state-owned enterprises. Find directories, watch live streams, read updates, and engage with our AI assistant.
+                </p>
+                <div style="background: var(--glass-bg); padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border); display: flex; gap: 0.5rem; max-width: 500px; margin-bottom: 2.5rem;">
+                    <input type="text" id="homeSearchInput" placeholder="Search Parastatals (e.g., Water Utilities)..." style="flex: 1; padding: 0.75rem 1rem; border: none; outline: none; background: transparent; font-family: inherit;">
+                    <button class="btn btn-primary" id="homeSearchBtn" style="padding: 0.75rem 1.5rem;">Search</button>
+                    <button onclick="openAISearch()" class="btn" style="background: linear-gradient(135deg, #004d99 0%, #00aaff 100%); color: white; padding: 0 1rem; border-radius: var(--radius-sm); border:none; cursor:pointer; display:flex; align-items:center; gap:0.4rem;">
+                        <i class="fas fa-robot"></i> AI
+                    </button>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="directory.html" class="btn btn-outline">Explore Directory</a>
+                    <a href="services.html" class="btn btn-outline">Our Services</a>
+                </div>
+            </div>
+            <div class="hero-image" style="position: relative;">
+                <!-- Glassmorphism Card Element in Hero -->
+                <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--glass-shadow); position: relative; z-index: 2; transform: translateY(-20px);">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <h3 style="font-size: 1.5rem;">Spotlight: Botswana Oil</h3>
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Botswana Oil" style="border-radius: var(--radius-md); width: 100%; height: 200px; object-fit: cover;">
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Ensuring security and efficiency of supply of petroleum products for Botswana.</p>
+                        <a href="directory.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">View Details <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <!-- Decorative Blur Blobs -->
+                <div style="position: absolute; top: -10%; right: -10%; width: 300px; height: 300px; background: rgba(117,170,219,0.3); filter: blur(60px); border-radius: 50%; z-index: 1;"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Overview Section -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <div class="text-center mb-6">
+                <span style="color: var(--primary); font-weight: 600;">WHAT WE DO</span>
+                <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">Empowering Parastatals</h2>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">Our comprehensive suite of digital, tech, and media solutions designed for Botswana's state-owned enterprises.</p>
+            </div>
+            
+            <div class="grid grid-cols-3">
+                <div class="card text-center" style="align-items: center;">
+                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="mb-2">Live Streaming</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Professional multi-camera streaming for key events across Facebook, YouTube, and our platform.</p>
+                </div>
+                <div class="card text-center" style="align-items: center;">
+                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="mb-2">AI Chatbot Solutions</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Intelligent, automated public engagement through our custom AI answering basic queries instantly.</p>
+                </div>
+                <div class="card text-center" style="align-items: center;">
+                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3 class="mb-2">Digital Content</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Weekly online news, monthly digital newsletters, and social media management.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="services.html" class="btn btn-outline">View All Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured News Section -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;" class="mb-6">
+                <div>
+                    <span style="color: var(--primary); font-weight: 600;">LATEST UPDATES</span>
+                    <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">News & Events</h2>
+                </div>
+                <a href="news.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">Read All News <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="grid grid-cols-2" id="home-news-container">
+                <!-- Javascript will populate this with mock data -->
+                <div style="text-align: center; color: var(--text-muted); padding: 2rem; width: 100%; grid-column: span 2;">
+                    Loading recent news...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- National Transparency Dashboard -->
+    <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white;">
+        <div class="container text-center">
+            <span style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.8);">National Progress</span>
+            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2.5rem; color: white;">Transparency Dashboard</h2>
+            <div class="grid grid-cols-4" style="gap: 2rem;">
+                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+                    <i class="fas fa-plug" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
+                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">87%</h3>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">National Electrification (BPC)</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+                    <i class="fas fa-faucet" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
+                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">92%</h3>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Safe Water Access (WUC)</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+                    <i class="fas fa-home" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
+                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">12,500</h3>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Housing Units Built (BHC)</p>
+                </div>
+                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+                    <i class="fas fa-road" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
+                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">4,200 km</h3>
+                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Paved Roads Maintained</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Impact Map (Simulated Text/Visual) -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container grid grid-cols-2" style="align-items: center; gap: 4rem;">
+            <div>
+                <span style="color: var(--primary); font-weight: 600;">COMMUNITY IMPACT</span>
+                <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">Interactive Regional Map</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Explore how our parastatal projects are impacting different districts across Botswana. From the solar grids in the Kgalagadi to the water pipelines in the North East.</p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Gaborone</button>
+                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Francistown</button>
+                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Maun</button>
+                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Palapye</button>
+                </div>
+            </div>
+            <div style="background: white; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--glass-shadow); text-align: center; position: relative;">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Botswana Map Concept" style="border-radius: var(--radius-md); opacity: 0.8; width: 100%; height: 300px; object-fit: cover; margin-bottom: 1rem;">
+                <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 1rem; border-radius: var(--radius-md); box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <h4 style="color: var(--primary); margin-bottom: 0.2rem;">Gaborone Innovation Hub</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);"><i class="fas fa-check-circle" style="color: #10b981;"></i> Status: Active</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Roadmap Section -->
+    <section class="section" style="background: white;">
+        <div class="container text-center">
+            <span style="color: var(--primary); font-weight: 600;">ROADMAP</span>
+            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">Future Expansions</h2>
+            <div class="grid grid-cols-4">
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-mobile-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Mobile App</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">E-Learning</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-store" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Digital Market</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Event Ticketing</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Roadmap Section -->
+    <section class="section" style="background: white;">
+        <div class="container text-center">
+            <span style="color: var(--primary); font-weight: 600;">ROADMAP</span>
+            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">Future Expansions</h2>
+            <div class="grid grid-cols-4">
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-mobile-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Mobile App</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">E-Learning</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-store" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Digital Market</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
+                    <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">Event Ticketing</h4>
+                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- AI Search Modal -->
+    <div class="modal-overlay" id="aiSearchModal" style="display: none; align-items: start; padding-top: 10vh; z-index: 1100;">
+        <div class="modal-content" style="max-width: 700px; background: rgba(255,255,255,0.98); border: 1px solid var(--primary-light);">
+            <button class="modal-close" onclick="closeAISearch()">&times;</button>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-robot"></i></div>
+                <h2 style="font-family: 'Outfit';">AI Search Assistant</h2>
+                <p style="color: var(--text-muted);">Ask a question about Botswana's Parastatals</p>
+            </div>
+            
+            <div style="position: relative; margin-bottom: 2rem;">
+                <input type="text" id="aiSearchInput" placeholder="Try: 'energy tenders' or 'water utilities location'" 
+                    style="width: 100%; padding: 1.2rem; border: 2px solid #e2e8f0; border-radius: var(--radius-md); font-size: 1.1rem; outline: none; transition: border-color 0.3s;">
+                <button onclick="triggerAISearch()" style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: var(--primary); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600;">Ask AI</button>
+            </div>
+
+            <div id="aiLoading" style="display: none; text-align: center; padding: 2rem;">
+                <div class="shimmer-line" style="width: 60%; margin: 0 auto 1rem;"></div>
+                <div class="shimmer-line" style="width: 80%; margin: 0 auto 1rem;"></div>
+                <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600; animation: pulse 1.5s infinite;">Searching National Database...</p>
+            </div>
+
+            <div id="aiResults" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <style>
+        .shimmer-line {
+            height: 15px;
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 10px;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    </style>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo mb-3"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 45px; width: auto; border-radius: 4px;"></a>
+                    <p style="margin-bottom: 1.5rem; max-width: 300px;">Developed by ASTEC (PTY) LTD, this platform brings together a complete suite of services making it easier for parastatals to connect with the public.</p>
+                    <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About Us</a>
+                        <a href="directory.html">Directory</a>
+                        <a href="news.html">News & Updates</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <div class="footer-links">
+                        <a href="services.html">Live Streaming</a>
+                        <a href="services.html">AI Chatbot</a>
+                        <a href="services.html">PR & Media Coverage</a>
+                        <a href="admin.html">Dashboard Login</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="footer-links">
+                        <a href="mailto:info@bwparastatal.com"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> info@bwparastatal.com</a>
+                        <a href="tel:+267XXXXXXXX"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +267 39XX XXX</a>
+                        <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Gaborone, Botswana</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // AI Search Mock Logic
+        function openAISearch() {
+            document.getElementById('aiSearchModal').style.display = 'flex';
+            document.getElementById('aiSearchInput').focus();
+        }
+        function closeAISearch() { document.getElementById('aiSearchModal').style.display = 'none'; }
+        
+        function triggerAISearch() {
+            const query = document.getElementById('aiSearchInput').value.toLowerCase();
+            if(!query) return;
+
+            const loading = document.getElementById('aiLoading');
+            const results = document.getElementById('aiResults');
+            
+            results.innerHTML = '';
+            loading.style.display = 'block';
+
+            setTimeout(() => {
+                loading.style.display = 'none';
+                const parastatals = getParastatals().filter(p => p.name.toLowerCase().includes(query) || p.sector.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+                const news = getNews().filter(n => n.title.toLowerCase().includes(query) || n.summary.toLowerCase().includes(query));
+
+                if (parastatals.length === 0 && news.length === 0) {
+                    results.innerHTML = `<p style="text-align:center; padding: 2rem; color: var(--text-muted);">AI could not find matching records.</p>`;
+                    return;
+                }
+
+                let html = `<p style="margin-bottom: 1rem; color: var(--primary); font-weight: 600;"><i class="fas fa-magic"></i> AI Found ${parastatals.length + news.length} results:</p>`;
+                parastatals.forEach(p => {
+                    html += `<div style="padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer;" onclick="window.location.href='directory.html?search=${p.name}'"><strong>${p.name}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${p.sector}</span></div>`;
+                });
+                news.forEach(n => {
+                    html += `<div style="padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer;" onclick="window.location.href='news.html'"><strong>NEWS: ${n.title}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${n.summary.substring(0, 50)}...</span></div>`;
+                });
+                results.innerHTML = html;
+            }, 1200);
+        }
+
+        // Initialize News on Home Page
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsContainer = document.getElementById('home-news-container');
+            const news = getNews().slice(0, 2); // Get latest 2
+            
+            if (news.length > 0) {
+                newsContainer.innerHTML = news.map(item => `
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div style="height: 250px; background: url('${item.image}') center/cover; position: relative;">
+                            ${getParastatals().find(p => p.name === item.parastatal)?.liveStreamUrl ? '<span style="position: absolute; top: 1rem; right: 1rem; background: red; color: white; padding: 0.2rem 0.6rem; border-radius: 1rem; font-size: 0.7rem; font-weight: bold; animation: pulse 2s infinite;">&bull; LIVE STREAM</span>' : ''}
+                        </div>
+                        <div style="padding: 2rem;">
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 600;">
+                                <span style="color: var(--primary);">${item.parastatal}</span>
+                                <span style="color: var(--text-muted);">${item.date}</span>
+                            </div>
+                            <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">${item.title}</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">${item.summary}</p>
+                            <a href="news.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">Read Article <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Home Page Search Routing
+            const homeSearchBtn = document.getElementById('homeSearchBtn');
+            const homeSearchInput = document.getElementById('homeSearchInput');
+            if(homeSearchBtn && homeSearchInput) {
+                const searchAction = () => {
+                    const query = homeSearchInput.value.trim();
+                    if(query) window.location.href = `directory.html?search=${encodeURIComponent(query)}`;
+                };
+                homeSearchBtn.addEventListener('click', searchAction);
+                homeSearchInput.addEventListener('keypress', (e) => {
+                    if(e.key === 'Enter') searchAction();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Support Portal | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start; background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(248,250,252,0.98)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80') center/cover;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">Citizen Support <span style="color: var(--primary);">Portal</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Report faults, request assistance, or provide feedback directly to relevant authorities.</p>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container grid grid-cols-2" style="align-items: center; gap: 4rem;">
+            <div>
+                <h2 style="font-size: 2.2rem; margin-bottom: 1rem;">How it works</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Our centralized fault reporting system ensures your ticket reaches the right department instantly. Choose the parastatal, describe the issue, and you will receive a tracking reference number via SMS.</p>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">1</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem;">Select Authority</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Choose the relevant state-owned enterprise.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">2</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem;">Submit Details</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Fill in location, contact, and description.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">3</div>
+                    <div>
+                        <h4 style="font-size: 1.1rem;">Track Progress</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Use your ticket ID to track the resolution timeline.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 1.5rem;">Fault / Support Form</h3>
+                <form id="supportForm">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem;">Select Parastatal</label>
+                        <select id="ticketOrg" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;">
+                            <option value="2">Botswana Power Corporation (Power Outage)</option>
+                            <option value="3">Water Utilities Corporation (Leak/No Water)</option>
+                            <option value="4">Botswana Housing Corporation (Maintenance)</option>
+                            <option value="admin">General Feedback (Super Admin)</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2" style="gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <input type="text" id="ticketName" placeholder="Full Name" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                        </div>
+                        <div>
+                            <input type="tel" id="ticketPhone" placeholder="Mobile Number" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <input type="text" id="ticketLoc" placeholder="Location / Plot Number" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea id="ticketDesc" placeholder="Describe the issue..." rows="4" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none; font-family: inherit; resize: none;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Ticket</button>
+                    <p id="tFormFeedback" style="display:none; color: green; margin-top: 1rem; text-align: center; font-weight: 600;"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center" style="padding: 2rem 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('supportForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const messages = getMessages();
+            const trackId = 'BWP-' + Math.floor(10000 + Math.random() * 90000);
+            
+            const newTicket = {
+                id: Date.now(),
+                type: 'support_ticket',
+                trackId: trackId,
+                parastatal_id: document.getElementById('ticketOrg').value,
+                name: document.getElementById('ticketName').value,
+                phone: document.getElementById('ticketPhone').value,
+                location: document.getElementById('ticketLoc').value,
+                description: document.getElementById('ticketDesc').value,
+                status: 'Open',
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            messages.push(newTicket);
+            localStorage.setItem('bw_messages', JSON.stringify(messages));
+            
+            const feedback = document.getElementById('tFormFeedback');
+            feedback.style.display = 'block';
+            feedback.innerText = `Ticket Submitted Successfully! Your tracking ID is: ${trackId}`;
+            
+            e.target.reset();
+            setTimeout(() => { feedback.style.display = 'none'; }, 6000);
+        });
+    </script>
+</body>
+</html>

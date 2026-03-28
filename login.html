@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | BW Parastatal Portal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(248,250,252,0.9), rgba(248,250,252,0.95)), url('https://images.unsplash.com/photo-1541888086425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .login-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header .logo {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            background: rgba(255,255,255,0.8);
+            outline: none;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: rgba(255,255,255,1);
+            box-shadow: 0 0 0 3px rgba(0, 77, 153, 0.1);
+        }
+
+        .error-msg {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+            text-align: center;
+        }
+
+        .form-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-header">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 50px; width: auto; border-radius: 4px;"></a>
+            <h2 style="font-size: 1.5rem; margin-top: 1rem;">Administrator Portal</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to manage your parastatal</p>
+        </div>
+
+        <div id="loginError" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="admin@bwparastatal.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem; margin-top: 1rem;">
+                Secure Sign In <i class="fas fa-lock" style="margin-left: 0.5rem;"></i>
+            </button>
+        </form>
+
+        <div class="form-footer">
+            <a href="index.html" style="color: var(--primary);"><i class="fas fa-arrow-left"></i> Return to Homepage</a>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">Super Admin Demo: admin@bwparastatal.com / admin</p>
+        </div>
+    </div>
+
+    <!-- Need data.js for getUsers, auth.js for login logic -->
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Redirect if already logged in
+            if(getCurrentUser()) {
+                window.location.href = 'admin.html';
+            }
+
+            const loginForm = document.getElementById('loginForm');
+            const errorMsg = document.getElementById('loginError');
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                const result = login(email, password);
+
+                if(result.success) {
+                    // Success visual
+                    errorMsg.style.display = 'block';
+                    errorMsg.style.background = 'rgba(34, 197, 94, 0.1)';
+                    errorMsg.style.color = '#22c55e';
+                    errorMsg.innerText = 'Authentication successful! Redirecting...';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 800);
+                } else {
+                    // Error visual
+                    errorMsg.style.display = 'block';
+                    errorMsg.style.background = 'rgba(239, 68, 68, 0.1)';
+                    errorMsg.style.color = '#ef4444';
+                    errorMsg.innerText = result.error;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

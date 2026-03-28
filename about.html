@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar (same as index) -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start; background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(248,250,252,0.98)), url('https://images.unsplash.com/photo-1577412647305-991150c7d163?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">About <span style="color: var(--primary);">BW Parastatal</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">A proudly Botswana-grown multimedia and digital platform designed to support and enhance the visibility of state-owned enterprises.</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container grid grid-cols-2" style="align-items: center;">
+            <div>
+                <span style="color: var(--primary); font-weight: 600;">OUR MISSION</span>
+                <h2 style="font-size: 2.2rem; margin: 0.5rem 0 1.5rem;">Connecting Parastatals with the Public</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">BW Parastatal brings together a complete suite of services in one convenient package???making it easier for parastatals to connect with the public, share important developments, and highlight their positive contributions to national development.</p>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">We understand the vital role that parastatals play in driving progress, service delivery, and economic growth. We exist to complement this work by providing professional live streaming services, consistent social media management, online newsletters, and a dedicated AI chatbot that makes information more accessible.</p>
+            </div>
+            <div style="position: relative;">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team collaborating" style="border-radius: var(--radius-lg); box-shadow: var(--glass-shadow);">
+            </div>
+        </div>
+    </section>
+
+    <!-- ASTEC Profile Section -->
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container grid grid-cols-2" style="align-items: center; gap: 4rem;">
+            <div style="position: relative; order: 2;">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Technology" style="border-radius: var(--radius-lg); box-shadow: var(--glass-shadow);">
+            </div>
+            <div style="order: 1;">
+                <span style="color: var(--primary); font-weight: 600;">DEVELOPER PROFILE</span>
+                <h2 style="font-size: 2.2rem; margin: 0.5rem 0 1.5rem;">About ASTEC (Pty) Ltd</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">ASTEC is a forward-thinking, innovative company dedicated to delivering comprehensive solutions in the digital, tech, and media landscape. We empower brands and businesses through intelligent systems, creative storytelling, and cutting-edge technology.</p>
+                <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Core Services</h3>
+                <ul style="color: var(--text-muted); display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                    <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 0.5rem;"></i> AI Solutions</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 0.5rem;"></i> IT Services</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 0.5rem;"></i> Multimedia Solutions</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 0.5rem;"></i> Website Development</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--primary-light); margin-right: 0.5rem;"></i> Radio & TV Ads</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="text-center mb-6">
+                <span style="color: var(--primary); font-weight: 600;">WHY CHOOSE US</span>
+                <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">Our Core Advantages</h2>
+            </div>
+            <div class="grid grid-cols-3">
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary);">Independent Content Control</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Your team has full transparency and input in the content shared. We maintain ethical standards and ensure your voice is represented accurately.</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary);">AI Chatbot Engagement</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Our custom chatbot makes it easier for the public to access basic information, reducing pressure on your customer service teams.</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--primary);">Complementary Support</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">We work alongside your communications team to complement their efforts???ensuring smooth operations without replacing internal teams.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="logo mb-3"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 45px; width: auto; border-radius: 4px;"></a>
+                    <p style="margin-bottom: 1.5rem; max-width: 300px;">Developed by ASTEC (PTY) LTD, this platform brings together a complete suite of services making it easier for parastatals to connect with the public.</p>
+                    <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <!-- Other footer columns can be duplicated here for completeness or simplified -->
+            </div>
+            <div class="footer-bottom" style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: #9ca3af; font-size: 0.9rem;">
+                <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+

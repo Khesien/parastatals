@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Library | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start; background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(248,250,252,0.98)), url('https://images.unsplash.com/photo-1568227451240-a3e9c403cb63?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">Document <span style="color: var(--primary);">Library</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Official publications, annual reports, and strategic plans.</p>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container grid grid-cols-4" id="documentsContainer">
+            <!-- Javascript will populate this with mock data -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center" style="padding: 2rem 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const docsContainer = document.getElementById('documentsContainer');
+            const docs = getDocuments();
+            const parastatals = getParastatals();
+            
+            if(docs.length === 0) {
+                docsContainer.innerHTML = `<div style="grid-column: span 4; text-align: center; color: var(--text-muted); padding: 2rem;">No documents available.</div>`;
+                return;
+            }
+
+            docs.sort((a,b) => b.id - a.id);
+
+            docsContainer.innerHTML = docs.map(doc => {
+                const org = parastatals.find(p => p.id === parseInt(doc.parastatal_id));
+                const orgName = org ? org.name : "System Update";
+                
+                return `
+                <div class="card" style="text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">${doc.title}</h4>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.2rem;">${orgName}</p>
+                    <p style="color: var(--primary-light); font-size: 0.8rem; margin-bottom: 1rem; font-weight: 600;">${doc.type}</p>
+                    <a href="${doc.fileUrl}" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 1rem;" target="_blank">Download</a>
+                </div>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>
+
+
+

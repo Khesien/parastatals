@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Media | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start; background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(248,250,252,0.98)), url('https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">News & <span style="color: var(--primary);">Media Hub</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Latest updates, live streams, and newsletters from Botswana's Parastatals.</p>
+        </div>
+    </header>
+
+    <!-- News Grid -->
+    <section class="section">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem;">Latest News</h2>
+                <div style="display: flex; gap: 0.5rem; background: var(--bg-white); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--glass-border);">
+                    <button style="padding: 0.5rem 1rem; border: none; background: var(--primary); color: white; border-radius: var(--radius-sm); cursor: pointer;">All News</button>
+                    <button style="padding: 0.5rem 1rem; border: none; background: transparent; color: var(--text-muted); cursor: pointer;">Press Releases</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-3" id="newsGrid">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Streaming Section -->
+    <section class="section" style="background: var(--bg-white);">
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; text-align: center;">Live <span style="color: red;">&bull;</span> Streams</h2>
+            <div class="grid grid-cols-2" style="align-items: center; gap: 3rem;">
+                <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--glass-shadow); position: relative; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Live Event" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;">
+                    <div style="position: absolute; width: 80px; height: 80px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; cursor: pointer; border: 1px solid rgba(255,255,255,0.4);"><i class="fas fa-play"></i></div>
+                    <span style="position: absolute; top: 1rem; left: 1rem; background: red; color: white; padding: 0.2rem 0.8rem; border-radius: 1rem; font-size: 0.8rem; font-weight: bold;">LIVE</span>
+                </div>
+                <div>
+                    <span style="color: var(--primary); font-weight: 600;">NOW STREAMING</span>
+                    <h3 style="font-size: 1.8rem; margin: 0.5rem 0 1rem;">BPC Annual General Meeting 2026</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Join the Botswana Power Corporation live as they discuss the new solar initiatives and the roadmap for the upcoming year.</p>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                        <span style="background: rgba(0,0,0,0.05); padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem;"><i class="fas fa-eye" style="color: var(--primary); margin-right: 0.5rem;"></i> 1.2k Viewers</span>
+                        <span style="background: rgba(0,0,0,0.05); padding: 0.5rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem;"><i class="fab fa-facebook" style="color: #1877F2; margin-right: 0.5rem;"></i> Simulcast</span>
+                    </div>
+                    <button class="btn btn-primary">Join Discussion</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- National Events Calendar -->
+    <section class="section">
+        <div class="container text-center">
+            <span style="color: var(--primary); font-weight: 600;">UPCOMING</span>
+            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 3rem;">National Events Calendar</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto; text-align: left;" id="eventsList">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Monthly Newsletter -->
+    <section class="section" style="background: var(--bg-light);">
+        <div class="container text-center">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem;">Monthly Digital Newsletters</h2>
+            <div class="grid grid-cols-4">
+                <div class="card" style="align-items: center; text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">March 2026 Edition</h4>
+                    <a href="#" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Download PDF</a>
+                </div>
+                <div class="card" style="align-items: center; text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">February 2026 Edition</h4>
+                    <a href="#" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Download PDF</a>
+                </div>
+                <div class="card" style="align-items: center; text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">January 2026 Edition</h4>
+                    <a href="#" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Download PDF</a>
+                </div>
+                <div class="card" style="align-items: center; text-align: center;">
+                    <i class="fas fa-file-pdf" style="font-size: 3rem; color: #ef4444; margin-bottom: 1rem;"></i>
+                    <h4 style="margin-bottom: 0.5rem;">December 2025 Edition</h4>
+                    <a href="#" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">Download PDF</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center" style="padding: 2rem 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsGrid = document.getElementById('newsGrid');
+            const allNews = getNews(); // Pull from localStorage
+
+            if (allNews.length === 0) {
+                newsGrid.innerHTML = '<p>No news available.</p>';
+            } else {
+                newsGrid.innerHTML = allNews.map(item => `
+                    <div class="card" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
+                        <div style="height: 200px; background: url('${item.image}') center/cover;"></div>
+                        <div style="padding: 1.5rem; flex: 1; display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 1rem;">
+                                <span style="color: white; background: var(--primary); padding: 0.2rem 0.6rem; border-radius: 1rem;">${item.parastatal}</span>
+                                <span style="color: var(--text-muted);">${item.date}</span>
+                            </div>
+                            <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">${item.title}</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; flex: 1;">${item.summary}</p>
+                            <a href="#" style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Populate Events Calendar
+            const eventsList = document.getElementById('eventsList');
+            const events = getEvents();
+            const parastatals = getParastatals();
+
+            if(events.length === 0) {
+                eventsList.innerHTML = '<p style="text-align:center;">No upcoming events scheduled.</p>';
+            } else {
+                eventsList.innerHTML = events.map(e => {
+                    const d = new Date(e.date);
+                    const day = d.getDate();
+                    const month = d.toLocaleString('default', { month: 'short' });
+                    const org = parastatals.find(p => p.id == e.parastatal_id)?.name || "National";
+
+                    return `
+                    <div style="display: flex; gap: 2rem; margin-bottom: 2rem; background: white; padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--glass-shadow);">
+                        <div style="text-align: center; min-width: 80px; border-right: 2px solid var(--glass-border); padding-right: 1.5rem;">
+                            <span style="display: block; font-size: 1.8rem; font-weight: bold; color: var(--primary);">${day}</span>
+                            <span style="display: block; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">${month}</span>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.8rem; background: rgba(0,77,153,0.1); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: 1rem; font-weight: 600;">${org}</span>
+                            <h3 style="font-size: 1.3rem; margin: 0.5rem 0;">${e.title}</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">${e.description}</p>
+                            <p style="font-size: 0.85rem; color: var(--secondary); font-weight: 500;"><i class="fas fa-map-marker-alt" style="color: var(--primary); margin-right: 0.5rem;"></i> ${e.location}</p>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+            }
+
+            // Handle Live Stream section dynamically
+            const liveOrg = parastatals.find(p => p.liveStreamUrl);
+            if(liveOrg) {
+                const liveSection = document.querySelector('section[style*="background: var(--bg-white)"]');
+                if(liveSection) {
+                    liveSection.querySelector('h3').innerText = `${liveOrg.name} - Online Event`;
+                    liveSection.querySelector('p').innerText = `Scheduled live stream for ${liveOrg.name}. Visit the official portal for real-time engagement and Q&A session.`;
+                    liveSection.querySelector('button').onclick = () => window.open(liveOrg.liveStreamUrl, '_blank');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

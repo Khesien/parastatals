@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start; background: linear-gradient(135deg, rgba(248,250,252,0.95), rgba(248,250,252,0.98)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80') center/cover;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">Parastatal <span style="color: var(--primary);">Directory</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Search and discover information about Botswana's state-owned enterprises.</p>
+            
+            <!-- Search & Filter Controls -->
+            <div style="background: var(--bg-white); padding: 1.5rem; border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); margin-top: 2.5rem; display: flex; gap: 1rem; max-width: 800px; margin-left: auto; margin-right: auto; flex-wrap: wrap;">
+                <input type="text" id="searchInput" placeholder="Search by name or mandate..." style="flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: var(--radius-md); outline: none; font-family: inherit;">
+                <select id="sectorFilter" style="padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: var(--radius-md); outline: none; font-family: inherit; background: white; min-width: 150px;">
+                    <option value="">All Sectors</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Housing & Infrastructure">Housing & Infrastructure</option>
+                </select>
+                <select id="regionFilter" style="padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: var(--radius-md); outline: none; font-family: inherit; background: white; min-width: 150px;">
+                    <option value="">All Regions</option>
+                    <option value="Gaborone">Gaborone</option>
+                    <option value="National">National</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="grid grid-cols-3" id="directoryGrid">
+                <!-- Javascript will populate this -->
+            </div>
+            
+            <div id="noResults" style="display: none; text-align: center; padding: 4rem; color: var(--text-muted);">
+                <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e1;"></i>
+                <h3 style="font-size: 1.5rem;">No Parastatals Found</h3>
+                <p>Try adjusting your search or filters.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom" style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: #9ca3af; font-size: 0.9rem;">
+                <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Details Modal -->
+    <div id="detailsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 1rem;">
+        <div style="background: white; border-radius: var(--radius-lg); width: 100%; max-width: 700px; max-height: 90vh; overflow-y: auto; position: relative;">
+            <button id="closeModal" style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(0,0,0,0.1); border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; transition: var(--transition);"><i class="fas fa-times"></i></button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('directoryGrid');
+            const searchInput = document.getElementById('searchInput');
+            const sectorFilter = document.getElementById('sectorFilter');
+            const regionFilter = document.getElementById('regionFilter');
+            const noResults = document.getElementById('noResults');
+            
+            const modal = document.getElementById('detailsModal');
+            const closeModal = document.getElementById('closeModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            let allData = getParastatals();
+
+            function renderGrid(data) {
+                grid.innerHTML = '';
+                if(data.length === 0) {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.style.cursor = 'pointer';
+                        card.onclick = () => openModal(item);
+                        
+                        card.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; position: relative;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: 1px solid var(--glass-border);">
+                                    <img src="${item.logo}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <h3 style="font-size: 1.1rem; color: var(--secondary);">${item.name}</h3>
+                                    <span style="font-size: 0.8rem; padding: 0.2rem 0.6rem; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 1rem;">${item.sector}</span>
+                                </div>
+                                ${item.liveStreamUrl ? '<span style="position: absolute; top: -10px; right: -10px; background: red; color: white; border-radius: 4px; padding: 0.1rem 0.4rem; font-size: 0.6rem; font-weight: bold; animation: pulse 2s infinite;">LIVE</span>' : ''}
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1;">${item.description}</p>
+                            <div style="border-top: 1px solid var(--glass-border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                                <span style="color: #6b7280;"><i class="fas fa-map-marker-alt"></i> ${item.region}</span>
+                                <span style="color: var(--primary); font-weight: 600;">View Profile <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                }
+            }
+
+            function filterData() {
+                const query = searchInput.value.toLowerCase();
+                const sector = sectorFilter.value;
+                const region = regionFilter.value;
+
+                const filtered = allData.filter(item => {
+                    const matchesSearch = item.name.toLowerCase().includes(query) || item.mandate.toLowerCase().includes(query);
+                    const matchesSector = sector === "" || item.sector === sector;
+                    const matchesRegion = region === "" || item.region === region;
+                    return matchesSearch && matchesSector && matchesRegion;
+                });
+
+                renderGrid(filtered);
+            }
+
+            function openModal(item) {
+                modalContent.innerHTML = `
+                    <div style="height: 150px; background: linear-gradient(135deg, var(--primary), var(--primary-light));"></div>
+                    <div style="padding: 2rem; margin-top: -60px;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                            <img src="${item.logo}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${item.name}</h2>
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                            <span style="font-size: 0.85rem; padding: 0.3rem 0.8rem; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 1rem;"><i class="fas fa-briefcase"></i> ${item.sector}</span>
+                            <span style="font-size: 0.85rem; padding: 0.3rem 0.8rem; background: rgba(0,0,0,0.05); color: var(--text-dark); border-radius: 1rem;"><i class="fas fa-map-marker-alt"></i> ${item.region}</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.1rem;">Mandate</h4>
+                            <p style="color: var(--text-muted); line-height: 1.6;">${item.mandate}</p>
+                        </div>
+                        
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <span style="display: block; font-size: 0.8rem; color: #6b7280; margin-bottom: 0.2rem;">Leadership</span>
+                                <strong>${item.leadership || 'N/A'}</strong>
+                            </div>
+                            <div>
+                                <span style="display: block; font-size: 0.8rem; color: #6b7280; margin-bottom: 0.2rem;">Website</span>
+                                <a href="${item.website}" target="_blank" style="color: var(--primary); font-weight: 500;">Visit Website <i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: right;">
+                            ${item.liveStreamUrl ? `<a href="${item.liveStreamUrl}" target="_blank" class="btn" style="background: red; color: white; margin-right: 1rem;"><i class="fas fa-video"></i> WATCH LIVE</a>` : ''}
+                            <a href="${item.website}" target="_blank" class="btn btn-primary">Visit Official Website</a>
+                        </div>
+                    </div>
+                `;
+                modal.style.display = 'flex';
+            }
+
+            closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+            modal.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+
+            searchInput.addEventListener('input', filterData);
+            sectorFilter.addEventListener('change', filterData);
+            regionFilter.addEventListener('change', filterData);
+
+            // Check for URL search param
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('search');
+            if(searchQuery) {
+                searchInput.value = searchQuery;
+                filterData();
+            } else {
+                renderGrid(allData);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+

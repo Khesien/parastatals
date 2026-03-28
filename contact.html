@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | BW Parastatal</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="directory.html">Directory</a>
+                <a href="services.html">Services</a>
+                
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="news.html">News & Media</a>
+                        <a href="tenders.html">Tenders</a>
+                        <a href="documents.html">Documents</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="about.html">About Us</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="support.html">Support</a>
+                    </div>
+                </div>
+
+                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" style="min-height: 40vh; padding-top: 120px; align-items: flex-start;">
+        <div class="container text-center">
+            <h1 style="font-size: 3rem; color: var(--secondary); margin-bottom: 1rem;">Get in <span style="color: var(--primary);">Touch</span></h1>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">Reach out to us for inquiries, partnerships, or to list your parastatal.</p>
+        </div>
+    </header>
+
+    <section class="section pt-0">
+        <div class="container grid grid-cols-2">
+            <div>
+                <h2 style="font-size: 2.2rem; margin-bottom: 1.5rem;">Contact Information</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">BW Parastatal is managed by ASTEC (Pty) Ltd. We are always ready to assist you.</p>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Our Location</h4>
+                        <p style="color: var(--text-muted);">Gaborone, Botswana</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Email Address</h4>
+                        <p style="color: var(--text-muted);">info@bwparastatal.com</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Phone Number</h4>
+                        <p style="color: var(--text-muted);">+267 39XX XXX</p>
+                    </div>
+                </div>
+                
+                <div style="padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+                    <h4 style="margin-bottom: 1rem;">Subscribe to our Newsletter</h4>
+                    <form style="display: flex; gap: 0.5rem;" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                        <input type="email" placeholder="Email Address" style="flex: 1; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                        <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1rem;"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 1.5rem;">Send a Message</h3>
+                <form id="contactForm">
+                    <div style="margin-bottom: 1rem;">
+                        <input type="text" id="cName" placeholder="Your Name" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <input type="email" id="cEmail" placeholder="Your Email" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none;" required>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea id="cDesc" placeholder="Your Message" rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: var(--radius-sm); outline: none; font-family: inherit; resize: none;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    <p id="cFormFeedback" style="display:none; color: green; margin-top: 1rem; text-align: center;">Message sent successfully!</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center" style="padding: 2rem 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const messages = getMessages();
+            const newMsg = {
+                id: Date.now(),
+                type: 'contact_message',
+                parastatal_id: 'admin', // General contact goes to Super Admin
+                name: document.getElementById('cName').value,
+                email: document.getElementById('cEmail').value,
+                description: document.getElementById('cDesc').value,
+                status: 'Unread',
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            messages.push(newMsg);
+            localStorage.setItem('bw_messages', JSON.stringify(messages));
+            
+            const feedback = document.getElementById('cFormFeedback');
+            feedback.style.display = 'block';
+            setTimeout(() => { feedback.style.display = 'none'; e.target.reset(); }, 4000);
+        });
+    </script>
+</body>
+</html>
