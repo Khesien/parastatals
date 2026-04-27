@@ -1,429 +1,1070 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BW Parastatal | Connecting State-Owned Enterprises</title>
-    <meta name="description" content="BW Parastatal is a digital platform that connects Botswana???s state-owned enterprises with the public, stakeholders, and potential partners.">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BW Parastatal – Botswana's Parastatal News Hub</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:wght@300;400;600&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#00aaff;--dark:#111;--muted:#888;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:#efefef;color:#111;}
+.page{display:none;}.page.active{display:block;}
+
+/* HEADER */
+#site-header{background:#111;position:sticky;top:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:11px 24px;}
+.logo-text{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:700;color:#fff;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;}
+.logo-text span{color:var(--blue);}
+.icon-btn{background:none;border:none;color:#bbb;cursor:pointer;padding:7px;border-radius:4px;display:flex;align-items:center;justify-content:center;transition:color .2s,background .2s;}
+.icon-btn:hover{color:#fff;background:rgba(255,255,255,.1);}
+.hamburger{display:none;}
+
+/* DESKTOP NAV */
+#main-nav{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:57px;z-index:499;box-shadow:0 2px 6px rgba(0,0,0,.06);}
+.nav-inner{display:flex;overflow-x:auto;scrollbar-width:none;max-width:1160px;margin:0 auto;padding:0 16px;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{font-family:'Barlow',sans-serif;font-weight:600;font-size:.83rem;color:#444;background:none;border:none;border-bottom:3px solid transparent;padding:13px 15px;cursor:pointer;white-space:nowrap;transition:color .18s,border-color .18s;letter-spacing:.02em;}
+.nav-btn:hover{color:var(--blue);}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue);}
+
+/* MOBILE NAV */
+#mobile-nav{display:none;background:#fff;border-top:1px solid #eee;flex-direction:column;}
+#mobile-nav.open{display:flex;}
+#mobile-nav .nav-btn{border-bottom:1px solid #f2f2f2;border-left:3px solid transparent;text-align:left;padding:13px 20px;}
+#mobile-nav .nav-btn.active{border-left-color:var(--blue);}
+
+/* SEARCH OVERLAY */
+#search-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.93);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding-top:11vh;overflow-y:auto;}
+#search-overlay.open{display:flex;}
+.s-inner{width:100%;max-width:700px;padding:0 20px 80px;}
+.s-box{display:flex;align-items:center;gap:12px;background:#1b1b1b;border:2px solid var(--blue);border-radius:6px;padding:14px 18px;}
+#s-input{background:none;border:none;outline:none;color:#fff;font-family:'Barlow',sans-serif;font-size:1.18rem;font-weight:500;width:100%;}
+#s-input::placeholder{color:#444;}
+.s-close{background:none;border:none;color:#555;cursor:pointer;display:flex;padding:2px;transition:color .2s;}
+.s-close:hover{color:#fff;}
+.s-hint{font-size:.74rem;color:#3a3a3a;margin:10px 0 22px 3px;letter-spacing:.03em;}
+.s-lbl{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:#383838;margin-bottom:10px;padding:0 2px;}
+.s-row{display:flex;align-items:center;gap:14px;background:#181818;border:1px solid #242424;border-radius:4px;padding:11px 14px;margin-bottom:6px;cursor:pointer;text-decoration:none;transition:border-color .18s,background .18s;}
+.s-row:hover{border-color:var(--blue);background:#192535;}
+.s-thumb{width:54px;height:42px;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.s-rc{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:3px;}
+.s-rt{font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;color:#ddd;line-height:1.3;}
+.s-rd{font-size:.67rem;color:#444;margin-top:2px;}
+mark{background:rgba(0,170,255,.2);color:var(--blue);border-radius:2px;padding:0 1px;}
+.s-none{color:#444;font-size:.9rem;padding:22px 4px;}
+
+/* ══ HERO — exact 3-col layout matching screenshot ══ */
+.hero-section{background:#191919;padding:18px 20px;}
+.hero-grid{
+  display:grid;
+  /* Col 1 is big (~46%), cols 2 & 3 split the rest */
+  grid-template-columns:46fr 27fr 27fr;
+  grid-template-rows:220px 220px;
+  gap:4px;
+  max-width:1160px;
+  margin:0 auto;
+}
+/* Big card spans both rows on left */
+.hero-card{position:relative;overflow:hidden;cursor:pointer;border:2px solid var(--blue);background:#1a1a1a;}
+.hero-card.big{grid-row:1/3;grid-column:1/2;}
+.h-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;transition:transform .4s;}
+.hero-card:hover .h-bg{transform:scale(1.05);}
+.h-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent 0%,rgba(0,0,0,.9) 60%);padding:44px 14px 14px;pointer-events:none;}
+.h-overlay h2{font-family:'Oswald',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;line-height:1.28;margin-bottom:5px;font-size:.97rem;}
+.hero-card.big .h-overlay h2{font-size:1.38rem;}
+.h-date{font-size:.69rem;color:#bbb;}
+
+/* LAYOUT */
+.body-wrap{max-width:1160px;margin:0 auto;padding:26px 16px;display:grid;grid-template-columns:1fr 228px;gap:26px;}
+.body-wrap.full{grid-template-columns:1fr;}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;margin-bottom:16px;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:1.9rem;font-weight:700;color:#111;flex-shrink:0;}
+.sec-line{flex:1;height:2px;background:#ddd;margin:0 13px;}
+.sec-more{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#555;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:3px;flex-shrink:0;transition:color .18s;}
+.sec-more:hover{color:var(--blue);}
+
+/* NEWS CARDS */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+.n-card{background:#fff;cursor:pointer;transition:box-shadow .2s,transform .15s;}
+.n-card:hover{box-shadow:0 6px 22px rgba(0,0,0,.13);transform:translateY(-2px);}
+.n-img-wrap{position:relative;overflow:hidden;}
+.n-img{width:100%;height:150px;display:flex;align-items:center;justify-content:center;transition:transform .3s;}
+.n-card:hover .n-img{transform:scale(1.04);}
+.n-cat{position:absolute;bottom:0;left:0;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#fff;background:var(--blue);padding:2px 9px;}
+.n-cat.green{background:#2ea043;}.n-cat.orange{background:#e07b00;}.n-cat.purple{background:#7c3aed;}.n-cat.red{background:#dc2626;}.n-cat.teal{background:#0d9488;}
+.n-body{padding:10px 0 4px;}
+.n-body h3{font-family:'Oswald',sans-serif;font-size:.97rem;font-weight:600;color:#111;line-height:1.34;margin-bottom:5px;}
+.n-body .dt{font-size:.71rem;color:var(--muted);display:flex;align-items:center;gap:4px;}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:18px;}
+.sb-box{background:#fff;border:1px solid #e5e5e5;padding:14px;}
+.sb-title{font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:var(--blue);color:#fff;padding:5px 12px;margin:-14px -14px 14px;}
+.sb-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0;text-decoration:none;color:inherit;cursor:pointer;transition:background .12s;}
+.sb-item:last-child{border-bottom:none;padding-bottom:0;}
+.sb-item:hover .sb-item-t{color:var(--blue);}
+.sb-thumb{width:54px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.sb-item-t{font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;color:#111;line-height:1.3;margin-bottom:3px;transition:color .18s;}
+.sb-item-d{font-size:.66rem;color:#999;}
+.ad-block{background:#e6e6e6;display:flex;align-items:center;justify-content:center;min-height:130px;font-size:.75rem;color:#bbb;letter-spacing:.06em;text-transform:uppercase;border:1px solid #d8d8d8;}
+
+/* SOCIAL BUTTONS */
+.social-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.soc-btn{display:flex;align-items:center;justify-content:center;padding:11px;border-radius:50%;text-decoration:none;font-size:1.05rem;color:#fff;transition:opacity .2s,transform .2s;}
+.soc-btn:hover{opacity:.82;transform:scale(1.1);}
+.soc-fb{background:#1877f2;}.soc-ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285aeb 90%);}.soc-li{background:#0a66c2;}.soc-tw{background:#000;}.soc-yt{background:#ff0000;}.soc-wa{background:#25d366;}
+
+/* PAGE HEADER */
+.page-hdr{display:flex;align-items:center;gap:12px;font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;color:#111;margin-bottom:22px;padding-bottom:12px;border-bottom:3px solid var(--blue);}
+.page-hdr i{color:var(--blue);}
+
+/* VIDEO GALLERY */
+.vid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.vid-card{background:#fff;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:box-shadow .2s,transform .15s;}
+.vid-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.14);transform:translateY(-3px);}
+.vid-ratio{position:relative;width:100%;padding-top:56.25%;background:#111;}
+.vid-ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.vid-body{padding:12px 14px 14px;}
+.vid-cat{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:4px;}
+.vid-title{font-family:'Oswald',sans-serif;font-size:.97rem;font-weight:600;color:#111;line-height:1.35;margin-bottom:6px;}
+.vid-meta{font-size:.7rem;color:var(--muted);display:flex;align-items:center;gap:5px;}
+
+/* ARCHIVES */
+.arch-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.filt-btn{font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:6px 14px;border:1px solid #ccc;background:#fff;color:#666;cursor:pointer;border-radius:2px;transition:all .18s;}
+.filt-btn:hover,.filt-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.arch-search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #ddd;padding:7px 12px;border-radius:2px;margin-left:auto;}
+.arch-search input{border:none;outline:none;font-family:'Barlow',sans-serif;font-size:.83rem;color:#333;width:180px;}
+.arch-table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.07);}
+.arch-table thead th{font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:#111;padding:12px 14px;text-align:left;}
+.arch-table tbody tr{border-bottom:1px solid #f0f0f0;transition:background .12s;}
+.arch-table tbody tr:hover{background:#eef7ff;}
+.arch-table td{padding:10px 14px;font-size:.83rem;vertical-align:middle;}
+.type-badge{display:inline-flex;align-items:center;gap:4px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:2px;white-space:nowrap;}
+.badge-art{background:#e8f4ff;color:#0077cc;}.badge-vid{background:#fff0f0;color:#cc0000;}
+.arch-link{color:var(--blue);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:5px;word-break:break-all;}
+.arch-link:hover{text-decoration:underline;}
+.arch-title-cell{font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;color:#111;line-height:1.3;}
+.arch-title-cell a{color:inherit;text-decoration:none;}.arch-title-cell a:hover{color:var(--blue);}
+
+/* VACANCIES */
+.career-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.job-card{background:#fff;padding:20px 22px;border:1px solid #e8e8e8;border-left:4px solid var(--blue);transition:box-shadow .2s,transform .15s;cursor:pointer;}
+.job-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px);}
+.job-org{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:6px;}
+.job-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:#111;margin-bottom:8px;line-height:1.3;}
+.job-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:.75rem;color:#666;margin-bottom:12px;}
+.job-meta span{display:flex;align-items:center;gap:4px;}
+.job-desc{font-size:.83rem;color:#555;line-height:1.6;margin-bottom:14px;}
+.apply-btn{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:7px 16px;border:none;cursor:pointer;transition:background .2s;border-radius:2px;}
+.apply-btn:hover{background:#0090dd;}
+
+/* ARTICLE */
+.art-wrap{max-width:1160px;margin:0 auto;padding:26px 16px;display:grid;grid-template-columns:1fr 228px;gap:26px;}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:.75rem;}
+.bc-cat{background:var(--blue);color:#fff;font-weight:700;padding:2px 10px;text-transform:uppercase;font-size:.68rem;letter-spacing:.05em;}
+.breadcrumb a{color:#666;text-decoration:none;font-weight:600;}
+.art-hero{width:100%;height:320px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+.art-caption{font-size:.73rem;color:#888;font-style:italic;margin-bottom:16px;}
+.art-title{font-family:'Oswald',sans-serif;font-size:1.65rem;font-weight:700;color:var(--blue);text-transform:uppercase;line-height:1.2;margin-bottom:6px;}
+.art-date{font-size:.8rem;color:#888;display:flex;align-items:center;gap:6px;margin-bottom:18px;}
+.art-body{font-family:'Source Serif 4',serif;font-size:.96rem;line-height:1.85;color:#222;}
+.art-body p{margin-bottom:14px;}
+.art-body h4{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:600;margin:20px 0 8px;color:#111;}
+.rel-hdr{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:14px;padding-top:20px;border-top:2px solid #e5e5e5;margin-top:28px;}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.rel-card{text-decoration:none;color:inherit;cursor:pointer;}
+.rel-img{width:100%;height:88px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;}
+.rel-card h4{font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:600;color:#111;line-height:1.3;margin-bottom:3px;}
+.rel-card:hover h4{color:var(--blue);}
+.rel-card .dt{font-size:.68rem;color:#999;}
+
+/* NEWSLETTER */
+.newsletter-box{background:linear-gradient(135deg,#0d1f35,#0a1525);border:1px solid #1e3a5c;padding:24px 22px;margin:28px 0;border-radius:2px;}
+.nl-title{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:10px;}
+.nl-title i{color:var(--blue);}
+.nl-sub{font-size:.82rem;color:#888;margin-bottom:16px;line-height:1.6;}
+.nl-form{display:flex;gap:8px;flex-wrap:wrap;}
+.nl-input{flex:1;min-width:180px;background:#111;border:1px solid #2a3a4a;color:#fff;padding:9px 14px;font-family:'Barlow',sans-serif;font-size:.87rem;outline:none;border-radius:2px;transition:border-color .2s;}
+.nl-input:focus{border-color:var(--blue);}
+.nl-input::placeholder{color:#444;}
+.nl-btn{background:var(--blue);color:#fff;border:none;padding:9px 20px;font-family:'Barlow',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;border-radius:2px;white-space:nowrap;display:flex;align-items:center;gap:7px;transition:background .2s;}
+.nl-btn:hover{background:#0090dd;}
+.nl-success{display:none;color:#2ea043;font-size:.85rem;font-weight:600;margin-top:10px;align-items:center;gap:6px;}
+.nl-success.show{display:flex;}
+
+/* SHARE */
+.share-bar{display:flex;align-items:center;gap:10px;margin:22px 0;padding:16px 18px;background:#fff;border:1px solid #e5e5e5;flex-wrap:wrap;}
+.share-label{font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#555;margin-right:4px;}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:700;border:none;cursor:pointer;border-radius:2px;transition:opacity .18s,transform .15s;color:#fff;}
+.share-btn:hover{opacity:.88;transform:translateY(-1px);}
+.sb-native{background:var(--blue);}
+.sb-fb{background:#1877f2;}
+.sb-tw{background:#000;}
+.sb-wa{background:#25d366;}
+.sb-copy{background:#555;color:#fff;}
+
+.back-btn{display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid #ddd;padding:6px 14px;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;color:#555;cursor:pointer;margin-bottom:16px;transition:all .18s;border-radius:2px;}
+.back-btn:hover{border-color:var(--blue);color:var(--blue);}
+.ad-art{background:linear-gradient(135deg,#1a1a1a,#2a2a2a);display:flex;align-items:center;justify-content:center;height:88px;margin:16px 0;font-size:.78rem;color:#444;letter-spacing:.07em;text-transform:uppercase;border:1px solid #2a2a2a;}
+
+/* FOOTER */
+footer{background:#111;color:#ccc;padding:34px 24px 14px;margin-top:20px;}
+.footer-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-bottom:24px;}
+.footer-hdr{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:10px;}
+.footer-text{font-size:.8rem;line-height:1.75;color:#888;}
+.footer-social{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.footer-social a{color:#777;font-size:1.25rem;text-decoration:none;transition:color .2s;}
+.footer-social a:hover{color:var(--blue);}
+.footer-nav{max-width:1160px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;padding:13px 0;border-top:1px solid #222;border-bottom:1px solid #222;margin-bottom:13px;}
+.footer-nav button{font-size:.75rem;color:#888;background:none;border:none;cursor:pointer;transition:color .18s;font-family:'Barlow',sans-serif;}
+.footer-nav button:hover{color:var(--blue);}
+.footer-bottom{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:.72rem;color:#555;}
+.footer-bottom a{color:var(--blue);text-decoration:none;}
+
+/* GRADIENTS */
+.g1{background:linear-gradient(135deg,#0d2035,#1a3a5c);}
+.g2{background:linear-gradient(135deg,#0d1f0d,#1a3a1a);}
+.g3{background:linear-gradient(135deg,#1a0d2a,#2a1a3a);}
+.g4{background:linear-gradient(135deg,#1f0d0d,#3a1a1a);}
+.g5{background:linear-gradient(135deg,#0d1f1f,#1a3a3a);}
+.g6{background:linear-gradient(135deg,#1f1a0d,#3a301a);}
+.g7{background:linear-gradient(135deg,#0d0d1f,#1a1a3a);}
+.g8{background:linear-gradient(135deg,#1a0d1a,#2a1a2a);}
+.g9{background:linear-gradient(135deg,#0d1a0d,#1a2a1a);}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .body-wrap,.art-wrap{grid-template-columns:1fr;}
+  .sidebar,.art-sidebar{display:none;}
+  .news-grid,.rel-grid{grid-template-columns:repeat(2,1fr);}
+  .vid-grid{grid-template-columns:repeat(2,1fr);}
+  .career-grid{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;gap:22px;}
+  .hero-grid{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,180px);}
+  .hero-card.big{grid-column:1/3;grid-row:1/2;}
+}
+@media(max-width:640px){
+  #site-header{padding:10px 14px;}
+  .logo-text{font-size:1.4rem;}
+  .hamburger{display:flex!important;}
+  .nav-inner{display:none!important;}
+  .hero-grid{grid-template-columns:1fr;grid-template-rows:none;}
+  .hero-card.big{grid-column:auto;grid-row:auto;}
+  .hero-card{height:190px;}
+  .news-grid,.rel-grid{grid-template-columns:1fr;}
+  .vid-grid{grid-template-columns:1fr;}
+  .arch-search input{width:110px;}
+  .nl-form{flex-direction:column;}
+  .share-bar{gap:6px;}
+}
+</style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 40px; width: auto; border-radius: 4px;"></a>
-            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="directory.html">Directory</a>
-                <a href="services.html">Services</a>
-                
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Resources <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
-                    <div class="dropdown-content">
-                        <a href="news.html">News & Media</a>
-                        <a href="tenders.html">Tenders</a>
-                        <a href="documents.html">Documents</a>
-                    </div>
-                </div>
+<!-- ══ SEARCH OVERLAY ══ -->
+<div id="search-overlay">
+  <div class="s-inner">
+    <div class="s-box">
+      <i data-lucide="search" width="20" height="20" style="color:var(--blue);flex-shrink:0;"></i>
+      <input id="s-input" type="text" placeholder="Search articles, tenders, videos…" autocomplete="off"
+        oninput="runSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()">
+      <button class="s-close" onclick="closeSearch()"><i data-lucide="x" width="20" height="20"></i></button>
+    </div>
+    <p class="s-hint">Start typing to discover articles, tenders &amp; videos across Botswana's parastatals</p>
+    <div id="s-results"></div>
+  </div>
+</div>
 
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle" onclick="event.preventDefault()">Connect <i class="fas fa-chevron-down" style="font-size: 0.8em;"></i></a>
-                    <div class="dropdown-content">
-                        <a href="about.html">About Us</a>
-                        <a href="contact.html">Contact</a>
-                        <a href="support.html">Support</a>
-                    </div>
-                </div>
+<!-- ══ HEADER ══ -->
+<header id="site-header">
+  <button class="icon-btn hamburger" onclick="toggleMob()"><i data-lucide="menu" width="22" height="22"></i></button>
+  <span class="logo-text" onclick="nav('home')"><span>BW</span> PARASTATAL</span>
+  <div style="display:flex;align-items:center;gap:4px;">
+    <button class="icon-btn" onclick="openSearch()"><i data-lucide="search" width="20" height="20"></i></button>
+  </div>
+</header>
 
-                <a href="admin.html" class="btn btn-outline" style="padding: 0.4rem 1rem; border-radius: var(--radius-sm); margin-left: 1rem;">Portal Login</a>
-            </div>
+<!-- ══ MOBILE NAV ══ -->
+<nav id="mobile-nav">
+  <button class="nav-btn active" onclick="nav('home')">Home</button>
+  <button class="nav-btn" onclick="nav('latest')">Latest News</button>
+  <button class="nav-btn" onclick="nav('business')">Business</button>
+  <button class="nav-btn" onclick="nav('tenders')">Tenders</button>
+  <button class="nav-btn" onclick="nav('vacancies')">Vacancies</button>
+  <button class="nav-btn" onclick="nav('archives')">Archives</button>
+  <button class="nav-btn" onclick="nav('videos')">Video Gallery</button>
+  <button class="nav-btn" onclick="nav('home')">Advertise</button>
+</nav>
+
+<!-- ══ DESKTOP NAV ══ -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-page="home"     onclick="nav('home')">Home</button>
+    <button class="nav-btn"        data-page="latest"   onclick="nav('latest')">Latest News</button>
+    <button class="nav-btn"        data-page="business" onclick="nav('business')">Business</button>
+    <button class="nav-btn"        data-page="tenders"  onclick="nav('tenders')">Tenders</button>
+    <button class="nav-btn"        data-page="vacancies"onclick="nav('vacancies')">Vacancies</button>
+    <button class="nav-btn"        data-page="archives" onclick="nav('archives')">Archives</button>
+    <button class="nav-btn"        data-page="videos"   onclick="nav('videos')">Video Gallery</button>
+    <button class="nav-btn"                             onclick="nav('home')">Advertise</button>
+  </div>
+</nav>
+
+<!-- ════════ HOME ════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO — matches screenshot exactly: big left card, 2×2 right -->
+  <section class="hero-section">
+    <div class="hero-grid">
+
+      <!-- BIG CARD (left, spans 2 rows) -->
+      <div class="hero-card big" onclick="openArticle('botswana-post')">
+        <div class="h-bg g1" style="height:100%;">
+          <i data-lucide="mail" width="60" height="60" color="rgba(255,255,255,.08)"></i>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container grid grid-cols-2" style="align-items: center;">
-            <div class="hero-content">
-                <span style="color: var(--primary-light); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 1rem;">Welcome to the Future</span>
-                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--secondary);">Connecting Botswana's <span style="color: var(--primary);">Parastatals</span> to the Public.</h1>
-                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 500px;">
-                    A central digital hub for state-owned enterprises. Find directories, watch live streams, read updates, and engage with our AI assistant.
-                </p>
-                <div style="background: var(--glass-bg); padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border); display: flex; gap: 0.5rem; max-width: 500px; margin-bottom: 2.5rem;">
-                    <input type="text" id="homeSearchInput" placeholder="Search Parastatals (e.g., Water Utilities)..." style="flex: 1; padding: 0.75rem 1rem; border: none; outline: none; background: transparent; font-family: inherit;">
-                    <button class="btn btn-primary" id="homeSearchBtn" style="padding: 0.75rem 1.5rem;">Search</button>
-                    <button onclick="openAISearch()" class="btn" style="background: linear-gradient(135deg, #004d99 0%, #00aaff 100%); color: white; padding: 0 1rem; border-radius: var(--radius-sm); border:none; cursor:pointer; display:flex; align-items:center; gap:0.4rem;">
-                        <i class="fas fa-robot"></i> AI
-                    </button>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <a href="directory.html" class="btn btn-outline">Explore Directory</a>
-                    <a href="services.html" class="btn btn-outline">Our Services</a>
-                </div>
-            </div>
-            <div class="hero-image" style="position: relative;">
-                <!-- Glassmorphism Card Element in Hero -->
-                <div style="background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--glass-shadow); position: relative; z-index: 2; transform: translateY(-20px);">
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <h3 style="font-size: 1.5rem;">Spotlight: Botswana Oil</h3>
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Botswana Oil" style="border-radius: var(--radius-md); width: 100%; height: 200px; object-fit: cover;">
-                        <p style="color: var(--text-muted); font-size: 0.95rem;">Ensuring security and efficiency of supply of petroleum products for Botswana.</p>
-                        <a href="directory.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition);">View Details <i class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
-                <!-- Decorative Blur Blobs -->
-                <div style="position: absolute; top: -10%; right: -10%; width: 300px; height: 300px; background: rgba(117,170,219,0.3); filter: blur(60px); border-radius: 50%; z-index: 1;"></div>
-            </div>
+        <div class="h-overlay">
+          <h2>Botswana Post Launches Digital Transformation Drive Across All 96 Outlets</h2>
+          <p class="h-date">12 March 2026</p>
         </div>
-    </header>
+      </div>
 
-    <!-- Services Overview Section -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="text-center mb-6">
-                <span style="color: var(--primary); font-weight: 600;">WHAT WE DO</span>
-                <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">Empowering Parastatals</h2>
-                <p style="color: var(--text-muted); max-width: 600px; margin: 1rem auto 0;">Our comprehensive suite of digital, tech, and media solutions designed for Botswana's state-owned enterprises.</p>
-            </div>
-            
-            <div class="grid grid-cols-3">
-                <div class="card text-center" style="align-items: center;">
-                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3 class="mb-2">Live Streaming</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Professional multi-camera streaming for key events across Facebook, YouTube, and our platform.</p>
-                </div>
-                <div class="card text-center" style="align-items: center;">
-                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3 class="mb-2">AI Chatbot Solutions</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Intelligent, automated public engagement through our custom AI answering basic queries instantly.</p>
-                </div>
-                <div class="card text-center" style="align-items: center;">
-                    <div style="width: 70px; height: 70px; background: rgba(0,77,153,0.1); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1.5rem;">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <h3 class="mb-2">Digital Content</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Weekly online news, monthly digital newsletters, and social media management.</p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-4">
-                <a href="services.html" class="btn btn-outline">View All Services</a>
-            </div>
+      <!-- Top-right 1 -->
+      <div class="hero-card" onclick="openArticle('burs-award')">
+        <div class="h-bg g2" style="height:100%;">
+          <i data-lucide="award" width="38" height="38" color="rgba(255,255,255,.08)"></i>
         </div>
-    </section>
-
-    <!-- Featured News Section -->
-    <section class="section" style="background: var(--bg-light);">
-        <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end;" class="mb-6">
-                <div>
-                    <span style="color: var(--primary); font-weight: 600;">LATEST UPDATES</span>
-                    <h2 style="font-size: 2.5rem; margin-top: 0.5rem;">News & Events</h2>
-                </div>
-                <a href="news.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">Read All News <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="grid grid-cols-2" id="home-news-container">
-                <!-- Javascript will populate this with mock data -->
-                <div style="text-align: center; color: var(--text-muted); padding: 2rem; width: 100%; grid-column: span 2;">
-                    Loading recent news...
-                </div>
-            </div>
+        <div class="h-overlay">
+          <h2>BURS Wins Best Tax Authority Award at Africa Expo 2026</h2>
+          <p class="h-date">05 April 2026</p>
         </div>
-    </section>
+      </div>
 
-    <!-- National Transparency Dashboard -->
-    <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white;">
-        <div class="container text-center">
-            <span style="font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.8);">National Progress</span>
-            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2.5rem; color: white;">Transparency Dashboard</h2>
-            <div class="grid grid-cols-4" style="gap: 2rem;">
-                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
-                    <i class="fas fa-plug" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">87%</h3>
-                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">National Electrification (BPC)</p>
-                </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
-                    <i class="fas fa-faucet" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">92%</h3>
-                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Safe Water Access (WUC)</p>
-                </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
-                    <i class="fas fa-home" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">12,500</h3>
-                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Housing Units Built (BHC)</p>
-                </div>
-                <div style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
-                    <i class="fas fa-road" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent);"></i>
-                    <h3 style="font-size: 2.5rem; margin-bottom: 0.5rem; color: white;">4,200 km</h3>
-                    <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Paved Roads Maintained</p>
-                </div>
-            </div>
+      <!-- Top-right 2 -->
+      <div class="hero-card" onclick="openArticle('lea-strategy')">
+        <div class="h-bg g3" style="height:100%;">
+          <i data-lucide="trending-up" width="38" height="38" color="rgba(255,255,255,.08)"></i>
         </div>
-    </section>
-
-    <!-- Regional Impact Map (Simulated Text/Visual) -->
-    <section class="section" style="background: var(--bg-light);">
-        <div class="container grid grid-cols-2" style="align-items: center; gap: 4rem;">
-            <div>
-                <span style="color: var(--primary); font-weight: 600;">COMMUNITY IMPACT</span>
-                <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">Interactive Regional Map</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">Explore how our parastatal projects are impacting different districts across Botswana. From the solar grids in the Kgalagadi to the water pipelines in the North East.</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Gaborone</button>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Francistown</button>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Maun</button>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Palapye</button>
-                </div>
-            </div>
-            <div style="background: white; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--glass-shadow); text-align: center; position: relative;">
-                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Botswana Map Concept" style="border-radius: var(--radius-md); opacity: 0.8; width: 100%; height: 300px; object-fit: cover; margin-bottom: 1rem;">
-                <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 1rem; border-radius: var(--radius-md); box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                    <h4 style="color: var(--primary); margin-bottom: 0.2rem;">Gaborone Innovation Hub</h4>
-                    <p style="font-size: 0.8rem; color: var(--text-muted);"><i class="fas fa-check-circle" style="color: #10b981;"></i> Status: Active</p>
-                </div>
-            </div>
+        <div class="h-overlay">
+          <h2>LEA Rolls Out P50M SME Acceleration Fund for 2026</h2>
+          <p class="h-date">08 February 2026</p>
         </div>
-    </section>
+      </div>
 
-    <!-- Future Roadmap Section -->
-    <section class="section" style="background: white;">
-        <div class="container text-center">
-            <span style="color: var(--primary); font-weight: 600;">ROADMAP</span>
-            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">Future Expansions</h2>
-            <div class="grid grid-cols-4">
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-mobile-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Mobile App</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">E-Learning</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-store" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Digital Market</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Event Ticketing</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-            </div>
+      <!-- Bottom-right 1 -->
+      <div class="hero-card" onclick="openArticle('medicine-man')">
+        <div class="h-bg g4" style="height:100%;">
+          <i data-lucide="heart-pulse" width="38" height="38" color="rgba(255,255,255,.08)"></i>
         </div>
-    </section>
-
-    <!-- Future Roadmap Section -->
-    <section class="section" style="background: white;">
-        <div class="container text-center">
-            <span style="color: var(--primary); font-weight: 600;">ROADMAP</span>
-            <h2 style="font-size: 2.5rem; margin-top: 0.5rem; margin-bottom: 2rem;">Future Expansions</h2>
-            <div class="grid grid-cols-4">
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-mobile-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Mobile App</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">E-Learning</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-store" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Digital Market</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-                <div class="card" style="align-items: center; border: 1px dashed var(--primary-light); background: transparent; box-shadow: none;">
-                    <i class="fas fa-ticket-alt" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
-                    <h4 style="margin-bottom: 0.5rem;">Event Ticketing</h4>
-                    <span style="font-size: 0.8rem; background: rgba(0,0,0,0.05); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm);">Coming Soon</span>
-                </div>
-            </div>
+        <div class="h-overlay">
+          <h2>PPADB Approves New Healthcare Procurement Framework</h2>
+          <p class="h-date">20 January 2026</p>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <!-- AI Search Modal -->
-    <div class="modal-overlay" id="aiSearchModal" style="display: none; align-items: start; padding-top: 10vh; z-index: 1100;">
-        <div class="modal-content" style="max-width: 700px; background: rgba(255,255,255,0.98); border: 1px solid var(--primary-light);">
-            <button class="modal-close" onclick="closeAISearch()">&times;</button>
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <div style="font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem;"><i class="fas fa-robot"></i></div>
-                <h2 style="font-family: 'Outfit';">AI Search Assistant</h2>
-                <p style="color: var(--text-muted);">Ask a question about Botswana's Parastatals</p>
-            </div>
-            
-            <div style="position: relative; margin-bottom: 2rem;">
-                <input type="text" id="aiSearchInput" placeholder="Try: 'energy tenders' or 'water utilities location'" 
-                    style="width: 100%; padding: 1.2rem; border: 2px solid #e2e8f0; border-radius: var(--radius-md); font-size: 1.1rem; outline: none; transition: border-color 0.3s;">
-                <button onclick="triggerAISearch()" style="position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: var(--primary); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: var(--radius-sm); cursor: pointer; font-weight: 600;">Ask AI</button>
-            </div>
-
-            <div id="aiLoading" style="display: none; text-align: center; padding: 2rem;">
-                <div class="shimmer-line" style="width: 60%; margin: 0 auto 1rem;"></div>
-                <div class="shimmer-line" style="width: 80%; margin: 0 auto 1rem;"></div>
-                <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600; animation: pulse 1.5s infinite;">Searching National Database...</p>
-            </div>
-
-            <div id="aiResults" style="max-height: 400px; overflow-y: auto;"></div>
+      <!-- Bottom-right 2 -->
+      <div class="hero-card" onclick="openArticle('bpc-corporate')">
+        <div class="h-bg g5" style="height:100%;">
+          <i data-lucide="zap" width="38" height="38" color="rgba(255,255,255,.08)"></i>
         </div>
+        <div class="h-overlay">
+          <h2>BPC Commissions 300MW Solar Plant in Kgalagadi</h2>
+          <p class="h-date">14 March 2026</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOME BODY -->
+  <div class="body-wrap">
+    <main>
+      <section style="margin-bottom:32px;">
+        <div class="sec-hdr">
+          <h2 class="sec-title">Latest News</h2>
+          <div class="sec-line"></div>
+          <button class="sec-more" onclick="nav('latest')">more <i data-lucide="chevron-right" width="13" height="13" style="display:inline;"></i></button>
+        </div>
+        <div class="news-grid" id="home-latest"></div>
+      </section>
+
+      <section style="margin-bottom:32px;">
+        <div class="sec-hdr">
+          <h2 class="sec-title">Business</h2>
+          <div class="sec-line"></div>
+          <button class="sec-more" onclick="nav('business')">more <i data-lucide="chevron-right" width="13" height="13" style="display:inline;"></i></button>
+        </div>
+        <div class="news-grid" id="home-business"></div>
+      </section>
+
+      <section style="margin-bottom:32px;">
+        <div class="sec-hdr">
+          <h2 class="sec-title">Tenders</h2>
+          <div class="sec-line"></div>
+          <button class="sec-more" onclick="nav('tenders')">more <i data-lucide="chevron-right" width="13" height="13" style="display:inline;"></i></button>
+        </div>
+        <div class="news-grid" id="home-tenders"></div>
+      </section>
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sb-box">
+        <h4 style="font-family:'Oswald',sans-serif;font-size:.9rem;font-weight:600;color:#111;margin-bottom:13px;">Stay Connected</h4>
+        <div class="social-grid">
+          <a href="#" class="soc-btn soc-fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc-btn soc-ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc-btn soc-li" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="soc-btn soc-tw" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="soc-btn soc-yt" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="soc-btn soc-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="ad-block">Ad Space</div>
+      <div class="sb-box">
+        <div class="sb-title">Featured Articles</div>
+        <div id="sb-featured"></div>
+      </div>
+      <div class="ad-block">Ad Space</div>
+    </aside>
+  </div>
+</div><!-- /home -->
+
+<!-- ════════ LATEST NEWS ════════ -->
+<div id="page-latest" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="newspaper" width="30" height="30"></i> Latest News</div>
+    <div class="news-grid" id="pg-latest"></div>
+  </div>
+</div>
+
+<!-- ════════ BUSINESS ════════ -->
+<div id="page-business" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="briefcase" width="30" height="30"></i> Business</div>
+    <div class="news-grid" id="pg-business"></div>
+  </div>
+</div>
+
+<!-- ════════ TENDERS ════════ -->
+<div id="page-tenders" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="file-text" width="30" height="30"></i> Tenders</div>
+    <div class="news-grid" id="pg-tenders"></div>
+  </div>
+</div>
+
+<!-- ════════ VACANCIES ════════ -->
+<div id="page-vacancies" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="users" width="30" height="30"></i> Vacancies &amp; Careers</div>
+    <div class="career-grid" id="pg-vacancies"></div>
+  </div>
+</div>
+
+<!-- ════════ VIDEO GALLERY ════════ -->
+<div id="page-videos" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="play-circle" width="32" height="32"></i> Video Gallery</div>
+    <div class="vid-grid">
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/5qanlirrRWs" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Economy</div><div class="vid-title">Botswana's Economic Outlook 2026</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> January 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/GqFLaLbJUXI" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Mining</div><div class="vid-title">Inside Botswana's Diamond Mining Industry</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> February 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/9bZkp7q19f0" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Investment</div><div class="vid-title">SEZs: Attracting Foreign Direct Investment to Botswana</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> March 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Finance</div><div class="vid-title">Botswana Stock Exchange: Q1 2026 Review</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> March 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/L_jWHffIx5E" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">SMEs</div><div class="vid-title">LEA P50M SME Acceleration Fund Explained</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> February 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/3fumBcKC6RE" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Technology</div><div class="vid-title">Cybersecurity: Protecting Botswana's Digital Future</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> April 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/ZZ5LpwO-An4" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Energy</div><div class="vid-title">BPC 300MW Kgalagadi Solar Plant Commission</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> March 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Postal Services</div><div class="vid-title">Botswana Post Digital Transformation Journey</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> January 2026</div></div></div>
+      <div class="vid-card"><div class="vid-ratio"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen loading="lazy"></iframe></div><div class="vid-body"><div class="vid-cat">Governance</div><div class="vid-title">BURS Award Ceremony at Africa Expo 2026</div><div class="vid-meta"><i data-lucide="calendar" width="12" height="12"></i> April 2026</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ARCHIVES ════════ -->
+<div id="page-archives" class="page">
+  <div class="body-wrap full">
+    <div class="page-hdr"><i data-lucide="archive" width="30" height="30"></i> Archives</div>
+    <div class="arch-filter">
+      <button class="filt-btn active" onclick="filterArch('all',this)">All</button>
+      <button class="filt-btn" onclick="filterArch('article',this)">Articles</button>
+      <button class="filt-btn" onclick="filterArch('video',this)">Videos</button>
+      <div class="arch-search">
+        <i data-lucide="search" width="14" height="14" color="#999"></i>
+        <input type="text" placeholder="Search archives…" oninput="searchArch(this.value)">
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="arch-table">
+        <thead><tr><th>#</th><th>Title</th><th>Category</th><th>Type</th><th>Date</th><th>URL / Source</th></tr></thead>
+        <tbody id="arch-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ ARTICLE ════════ -->
+<div id="page-article" class="page">
+  <div class="art-wrap">
+    <div>
+      <button class="back-btn" onclick="goBack()"><i data-lucide="arrow-left" width="14" height="14"></i> Back</button>
+      <div class="breadcrumb">
+        <span class="bc-cat" id="art-cat">NEWS</span>
+        <a href="#" onclick="nav('home');return false;">BW PARASTATAL</a>
+      </div>
+      <div class="art-hero" id="art-hero"></div>
+      <p class="art-caption" id="art-caption"></p>
+      <h1 class="art-title" id="art-title"></h1>
+      <p class="art-date"><i data-lucide="calendar" width="13" height="13"></i>&nbsp;<span id="art-date"></span></p>
+
+      <!-- SHARE BAR (top) -->
+      <div class="share-bar" id="share-bar-top">
+        <span class="share-label"><i data-lucide="share-2" width="14" height="14" style="display:inline;margin-right:4px;"></i>Share</span>
+        <button class="share-btn sb-native" onclick="nativeShare()"><i data-lucide="share" width="13" height="13"></i> Share</button>
+        <button class="share-btn sb-fb" onclick="shareToFb()"><i class="fab fa-facebook-f" style="font-size:.85rem;"></i> Facebook</button>
+        <button class="share-btn sb-tw" onclick="shareToTw()"><i class="fab fa-x-twitter" style="font-size:.85rem;"></i> Twitter</button>
+        <button class="share-btn sb-wa" onclick="shareToWa()"><i class="fab fa-whatsapp" style="font-size:.85rem;"></i> WhatsApp</button>
+        <button class="share-btn sb-copy" onclick="copyLink()"><i data-lucide="link" width="13" height="13"></i> Copy Link</button>
+      </div>
+
+      <div class="art-body" id="art-body"></div>
+
+      <!-- RELATED ARTICLES -->
+      <div class="rel-hdr">Related Articles</div>
+      <div class="rel-grid" id="rel-grid"></div>
+
+      <!-- NEWSLETTER (replaces comments) -->
+      <div class="newsletter-box" id="nl-box">
+        <div class="nl-title"><i data-lucide="mail" width="20" height="20"></i> Stay Informed</div>
+        <p class="nl-sub">Subscribe to our newsletter and never miss breaking news from Botswana's parastatals, government tenders, and business updates — delivered straight to your inbox.</p>
+        <div class="nl-form">
+          <input class="nl-input" id="nl-email" type="email" placeholder="Enter your email address…">
+          <button class="nl-btn" onclick="subscribe()"><i data-lucide="send" width="14" height="14"></i> Subscribe</button>
+        </div>
+        <div class="nl-success" id="nl-success"><i data-lucide="check-circle" width="16" height="16"></i> You're subscribed! Welcome to BW Parastatal.</div>
+      </div>
+
+      <!-- SHARE BAR (bottom) -->
+      <div class="share-bar">
+        <span class="share-label"><i data-lucide="share-2" width="14" height="14" style="display:inline;margin-right:4px;"></i>Share this article</span>
+        <button class="share-btn sb-native" onclick="nativeShare()"><i data-lucide="share" width="13" height="13"></i> Share</button>
+        <button class="share-btn sb-fb" onclick="shareToFb()"><i class="fab fa-facebook-f" style="font-size:.85rem;"></i> Facebook</button>
+        <button class="share-btn sb-tw" onclick="shareToTw()"><i class="fab fa-x-twitter" style="font-size:.85rem;"></i> Twitter</button>
+        <button class="share-btn sb-wa" onclick="shareToWa()"><i class="fab fa-whatsapp" style="font-size:.85rem;"></i> WhatsApp</button>
+        <button class="share-btn sb-copy" onclick="copyLink()"><i data-lucide="link" width="13" height="13"></i> Copy Link</button>
+      </div>
+
+      <div class="ad-art">Advertisement Space</div>
     </div>
 
-    <style>
-        .shimmer-line {
-            height: 15px;
-            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 10px;
-        }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    </style>
-
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="index.html" class="logo mb-3"><img src="assets/logo.jpg" alt="BW Parastatal" style="height: 45px; width: auto; border-radius: 4px;"></a>
-                    <p style="margin-bottom: 1.5rem; max-width: 300px;">Developed by ASTEC (PTY) LTD, this platform brings together a complete suite of services making it easier for parastatals to connect with the public.</p>
-                    <div style="display: flex; gap: 1rem; font-size: 1.2rem;">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <div class="footer-links">
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About Us</a>
-                        <a href="directory.html">Directory</a>
-                        <a href="news.html">News & Updates</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Services</h4>
-                    <div class="footer-links">
-                        <a href="services.html">Live Streaming</a>
-                        <a href="services.html">AI Chatbot</a>
-                        <a href="services.html">PR & Media Coverage</a>
-                        <a href="admin.html">Dashboard Login</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <div class="footer-links">
-                        <a href="mailto:info@bwparastatal.com"><i class="fas fa-envelope" style="margin-right: 0.5rem;"></i> info@bwparastatal.com</a>
-                        <a href="tel:+267XXXXXXXX"><i class="fas fa-phone" style="margin-right: 0.5rem;"></i> +267 39XX XXX</a>
-                        <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i> Gaborone, Botswana</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 BW Parastatal by ASTEC (Pty) Ltd. All Rights Reserved.</p>
-            </div>
+    <!-- ARTICLE SIDEBAR -->
+    <aside class="sidebar art-sidebar">
+      <div class="sb-box"><div class="sb-title">More Articles</div><div id="art-sb-list"></div></div>
+      <div class="ad-block" style="min-height:180px;">Ad Space</div>
+      <div class="sb-box">
+        <h4 style="font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;margin-bottom:12px;color:#111;">Stay Connected</h4>
+        <div class="social-grid">
+          <a href="#" class="soc-btn soc-fb"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="soc-btn soc-ig"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="soc-btn soc-li"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="soc-btn soc-tw"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="soc-btn soc-yt"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="soc-btn soc-wa"><i class="fab fa-whatsapp"></i></a>
         </div>
-    </footer>
+      </div>
+    </aside>
+  </div>
+</div>
 
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        // AI Search Mock Logic
-        function openAISearch() {
-            document.getElementById('aiSearchModal').style.display = 'flex';
-            document.getElementById('aiSearchInput').focus();
-        }
-        function closeAISearch() { document.getElementById('aiSearchModal').style.display = 'none'; }
-        
-        function triggerAISearch() {
-            const query = document.getElementById('aiSearchInput').value.toLowerCase();
-            if(!query) return;
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-hdr">ABOUT US</div>
+      <p class="footer-text">Parastatals BW is a publication that seeks to link, cover and share the informative message of parastatals in Botswana quarterly through strategic distribution networks to different areas across the country — even the most remote parts of Botswana.</p>
+    </div>
+    <div>
+      <div class="footer-hdr">FOLLOW US</div>
+      <div class="footer-social">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-nav">
+    <button onclick="nav('home')">Home</button>
+    <button onclick="nav('latest')">Latest News</button>
+    <button onclick="nav('business')">Business</button>
+    <button onclick="nav('tenders')">Tenders</button>
+    <button onclick="nav('vacancies')">Vacancies</button>
+    <button onclick="nav('archives')">Archives</button>
+    <button onclick="nav('videos')">Video Gallery</button>
+    <button>Advertise</button>
+  </div>
+  <div class="footer-bottom">
+    <p>© Copyright 2026 BW Parastatal. All rights reserved</p>
+    <p>Website by <a href="https://motswanaintelligence.com" target="_blank">Motswana Intelligence</a></p>
+  </div>
+</footer>
 
-            const loading = document.getElementById('aiLoading');
-            const results = document.getElementById('aiResults');
-            
-            results.innerHTML = '';
-            loading.style.display = 'block';
+<script>
+/* ═══════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════ */
+const ARTS = {
+  'botswana-post':{sec:'latest',cat:'LATEST NEWS',color:'g1',icon:'mail',org:'Botswana Post',
+    title:'Botswana Post Launches Digital Transformation Drive Across All 96 Outlets',date:'12 March 2026',
+    caption:'Botswana Post CEO flanked by ICT executives during the digital launch at Head Office, Gaborone.',
+    body:`<p>Botswana Post has kicked off an ambitious P180 million digital transformation programme that will modernise all 96 of its outlets nationwide by the end of 2026, positioning the century-old parastatal as a competitive player in Botswana's fast-growing e-commerce and digital financial services landscape.</p>
+<h4>Smart Kiosk Rollout</h4>
+<p>At the heart of the programme is the deployment of 96 self-service smart kiosks — one per outlet — enabling citizens to pay utility bills, renew licences, purchase mobile data, and access government services without requiring teller assistance. The kiosks are locally assembled in partnership with a Gaborone-based tech startup, creating an estimated 340 direct and indirect jobs.</p>
+<p>"This is not just about postal services," said CEO Dineo Moremi at the Gaborone launch event. "We are becoming Botswana's most accessible community financial services platform."</p>
+<h4>Agency Banking Expansion</h4>
+<p>Botswana Post will also extend its agency banking agreement with First National Bank Botswana and Bank Gaborone, allowing rural customers to deposit and withdraw cash at any outlet. The Ministry of Communications &amp; Innovation has earmarked P40 million from the Universal Service Fund to subsidise connectivity infrastructure upgrades at the 28 most remote outlets.</p>`},
 
-            setTimeout(() => {
-                loading.style.display = 'none';
-                const parastatals = getParastatals().filter(p => p.name.toLowerCase().includes(query) || p.sector.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
-                const news = getNews().filter(n => n.title.toLowerCase().includes(query) || n.summary.toLowerCase().includes(query));
+  'burs-award':{sec:'business',cat:'BUSINESS',color:'g2',icon:'award',org:'BURS',
+    title:'BURS Wins Best Tax Authority Award at Africa Expo 2026',date:'05 April 2026',
+    caption:'BURS Commissioner General receiving the Best Tax Authority award, Nairobi.',
+    body:`<p>The Botswana Unified Revenue Service (BURS) has been honoured with the Best Tax Authority in Africa award at the 2026 African Tax Administration Forum Annual Conference held in Nairobi, Kenya — recognition of the agency's decade-long drive to modernise revenue collection.</p>
+<h4>What Drove the Win</h4>
+<p>BURS scored highest across four judging criteria: digital service delivery, voluntary compliance rates, taxpayer education programmes, and cross-border information exchange. Notably, BURS's e-filing platform recorded a 94% uptake rate in 2025 — the highest on the continent for its income bracket.</p>
+<p>The authority processed P72.4 billion in tax revenue in the 2025/26 financial year, exceeding its target by 8.3% despite global economic headwinds.</p>
+<h4>What's Next</h4>
+<p>BURS plans to introduce AI-powered risk profiling for VAT audits in the second half of 2026, expected to reduce audit turnaround time by 60%. The authority is also piloting a real-time invoice verification system for large traders in partnership with the Botswana Stock Exchange.</p>`},
 
-                if (parastatals.length === 0 && news.length === 0) {
-                    results.innerHTML = `<p style="text-align:center; padding: 2rem; color: var(--text-muted);">AI could not find matching records.</p>`;
-                    return;
-                }
+  'lea-strategy':{sec:'business',cat:'BUSINESS',color:'g3',icon:'trending-up',org:'LEA',
+    title:'LEA Rolls Out P50M SME Acceleration Fund for 2026',date:'08 February 2026',
+    caption:'LEA Director General presenting the P50M SME Acceleration Fund at the Annual SME Summit, GICC.',
+    body:`<p>The Local Enterprise Authority (LEA) has launched a P50 million SME Acceleration Fund targeting 500 high-growth small and medium enterprises across Botswana's five economic corridors, marking the largest single investment in SME development in the country's history.</p>
+<h4>Fund Structure</h4>
+<p>The fund is structured in three tiers: a P5,000–P50,000 micro-grant for startups under two years old, a P50,000–P250,000 growth loan at 4% for businesses with proven revenue, and a P250,000–P1M equity-linked facility for export-ready enterprises. All tiers require completion of LEA's mandatory business development programme.</p>
+<h4>Target Sectors</h4>
+<p>Priority sectors include agro-processing, tourism services, digital technology, creative industries, and construction. Applications open on 1 May 2026 via the revamped LEA digital portal. "We are not just funding businesses — we are building an ecosystem," said LEA Director General Kebonye Segaiso.</p>`},
 
-                let html = `<p style="margin-bottom: 1rem; color: var(--primary); font-weight: 600;"><i class="fas fa-magic"></i> AI Found ${parastatals.length + news.length} results:</p>`;
-                parastatals.forEach(p => {
-                    html += `<div style="padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer;" onclick="window.location.href='directory.html?search=${p.name}'"><strong>${p.name}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${p.sector}</span></div>`;
-                });
-                news.forEach(n => {
-                    html += `<div style="padding: 1rem; border-bottom: 1px solid #eee; cursor: pointer;" onclick="window.location.href='news.html'"><strong>NEWS: ${n.title}</strong><br><span style="font-size: 0.8rem; color: var(--text-muted);">${n.summary.substring(0, 50)}...</span></div>`;
-                });
-                results.innerHTML = html;
-            }, 1200);
-        }
+  'medicine-man':{sec:'latest',cat:'LATEST NEWS',color:'g4',icon:'heart-pulse',org:'PPADB',
+    title:'PPADB Approves New Healthcare Procurement Framework',date:'20 January 2026',
+    caption:'PPADB Chairperson signs the new Healthcare Procurement Framework at the Ministry of Health.',
+    body:`<p>The Public Procurement and Asset Disposal Board (PPADB) has approved a landmark Healthcare Procurement Framework that promises to cut the average procurement cycle for essential medicines from 18 months to under 60 days — a reform health workers have campaigned for over a decade.</p>
+<h4>Key Changes</h4>
+<p>Under the new framework, a pre-qualified supplier list of 47 pharmaceutical companies will enable direct award contracts for items on the Essential Medicines List without going through full tender. Emergency health commodities can now be procured within 72 hours through a newly established Category A Fast-Track Protocol.</p>
+<h4>Impact on Public Hospitals</h4>
+<p>Ministry of Health officials project the reform will reduce stockout incidents at District Hospitals by an estimated 65% within the first year. Princess Marina Hospital, which reported 22 critical medicine stockouts in 2025, is expected to be among the first to benefit.</p>`},
 
-        // Initialize News on Home Page
-        document.addEventListener('DOMContentLoaded', () => {
-            const newsContainer = document.getElementById('home-news-container');
-            const news = getNews().slice(0, 2); // Get latest 2
-            
-            if (news.length > 0) {
-                newsContainer.innerHTML = news.map(item => `
-                    <div class="card" style="padding: 0; overflow: hidden;">
-                        <div style="height: 250px; background: url('${item.image}') center/cover; position: relative;">
-                            ${getParastatals().find(p => p.name === item.parastatal)?.liveStreamUrl ? '<span style="position: absolute; top: 1rem; right: 1rem; background: red; color: white; padding: 0.2rem 0.6rem; border-radius: 1rem; font-size: 0.7rem; font-weight: bold; animation: pulse 2s infinite;">&bull; LIVE STREAM</span>' : ''}
-                        </div>
-                        <div style="padding: 2rem;">
-                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 600;">
-                                <span style="color: var(--primary);">${item.parastatal}</span>
-                                <span style="color: var(--text-muted);">${item.date}</span>
-                            </div>
-                            <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">${item.title}</h3>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">${item.summary}</p>
-                            <a href="news.html" style="color: var(--primary); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">Read Article <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            // Home Page Search Routing
-            const homeSearchBtn = document.getElementById('homeSearchBtn');
-            const homeSearchInput = document.getElementById('homeSearchInput');
-            if(homeSearchBtn && homeSearchInput) {
-                const searchAction = () => {
-                    const query = homeSearchInput.value.trim();
-                    if(query) window.location.href = `directory.html?search=${encodeURIComponent(query)}`;
-                };
-                homeSearchBtn.addEventListener('click', searchAction);
-                homeSearchInput.addEventListener('keypress', (e) => {
-                    if(e.key === 'Enter') searchAction();
-                });
-            }
-        });
+  'bpc-corporate':{sec:'business',cat:'BUSINESS',color:'g5',icon:'zap',org:'BPC',
+    title:'BPC Commissions 300MW Solar Plant in Kgalagadi',date:'14 March 2026',
+    caption:"Aerial view of the Kgalagadi Solar Farm — Botswana's largest renewable energy installation.",
+    body:`<p>Botswana Power Corporation (BPC) has officially commissioned the 300-megawatt Kgalagadi Solar Photovoltaic Plant, the largest renewable energy installation in Botswana's history and a centrepiece of the country's strategy to achieve 50% renewable energy in its national grid by 2030.</p>
+<h4>Project Details</h4>
+<p>The plant, located 45km south of Tsabong in the Kgalagadi District, covers 850 hectares and uses 680,000 bifacial solar panels. At full capacity, it will supply electricity to approximately 180,000 households and reduce Botswana's dependence on imported power from Eskom by 40%.</p>
+<h4>Economic Benefits</h4>
+<p>The P2.1 billion project was financed through a combination of African Development Bank concessional loans, a P600 million BPC bond, and direct government appropriation. During construction, the project employed over 1,400 Batswana workers, 60% of whom were recruited from Kgalagadi District itself.</p>`},
 
+  'seza':{sec:'latest',cat:'LATEST NEWS',color:'g6',icon:'building',org:'SEZA',
+    title:'SEZA Secures P820M in New Investment Commitments at 2026 Summit',date:'18 February 2026',
+    caption:'SEZA CEO and Minister of Trade at the signing ceremony, GICC Gaborone.',
+    body:`<p>The Special Economic Zones Authority (SEZA) emerged from the 2026 Botswana Investment Summit with signed commitments totalling P820 million from 14 companies, spanning manufacturing, agro-processing, logistics, and financial technology — the strongest single-event investment result in the authority's history.</p>
+<p>Among the headline deals: a P320M automotive parts manufacturing facility at the Gaborone SEZ by a South African consortium, a P150M cold-chain logistics hub at the Francistown SEZ, and a P200M fintech data centre earmarked for the Lobatse SEZ.</p>
+<h4>Enabling Environment</h4>
+<p>SEZA officials credited recent regulatory improvements — including a one-stop investor desk that cuts business registration to three days and a new 10-year corporate tax holiday for qualifying manufacturers — for the surge in interest.</p>`},
 
+  'lea-expo':{sec:'latest',cat:'LATEST NEWS',color:'g7',icon:'globe',org:'LEA',
+    title:'27 LEA-Backed Enterprises Exhibit at Johannesburg Trade Fair',date:'01 March 2026',
+    caption:'LEA-supported entrepreneurs at the Botswana Pavilion, Johannesburg International Trade Fair.',
+    body:`<p>Twenty-seven enterprises supported by the Local Enterprise Authority (LEA) participated in the 2026 Johannesburg International Trade Fair under a unified Botswana Pavilion, with preliminary reports indicating over P15 million in on-the-spot sales and long-term supply agreements signed during the five-day event.</p>
+<p>Among the standout performers: a Maun-based organic honey producer who signed a supply deal with a Johannesburg premium supermarket chain, a Gaborone ceramics studio that received orders from three hotel chains, and a Francistown textile manufacturer who secured a school uniform supply contract.</p>
+<h4>LEA's Expo Support</h4>
+<p>LEA covered 60% of booth costs, handled all logistics coordination, and provided each company with a pre-assigned B2B meeting schedule with curated buyer contacts. "We don't just exhibit — we prepare our businesses to convert," said LEA's Market Access Director.</p>`},
+
+  'diamond':{sec:'business',cat:'BUSINESS',color:'g8',icon:'gem',org:'ODC',
+    title:'Okavango Diamond Company Posts Record P4.2B Revenue in 2025/26',date:'10 April 2026',
+    caption:'ODC rough diamond viewing at the new Gaborone Diamond Trading Centre.',
+    body:`<p>The Okavango Diamond Company (ODC) has reported record revenue of P4.2 billion for the 2025/26 financial year, a 23% increase over the prior year, driven by strong demand from Indian cutting centres and recovering luxury markets in China and the United States.</p>
+<h4>Strategic Sales Model</h4>
+<p>ODC sold 4.3 million carats through its mix of long-term supply agreements, tender sales, and its Buyer Programme for smaller manufacturers. The company's decision to retain rough during the market dip of early 2025 and release inventory in Q3/Q4 proved a significant strategic win, yielding a 14% price premium.</p>
+<p>CEO Marcus Motswagae said the company would invest P120 million of the surplus into expanding the Gaborone Diamond Trading Centre and establishing a new gem-testing laboratory accredited to international standards by mid-2027.</p>`},
+
+  'lerala':{sec:'latest',cat:'LATEST NEWS',color:'g6',icon:'diamond',org:'Debswana',
+    title:'Debswana Announces P1.2B Jwaneng Mine Life Extension to 2046',date:'25 March 2026',
+    caption:'Underground development works at Jwaneng Mine, southern Botswana.',
+    body:`<p>Debswana Diamond Company has approved a P1.2 billion capital investment to extend the operational life of the Jwaneng Mine — the world's richest diamond mine by value — to at least 2046, securing the bedrock of Botswana's mineral-dependent economy for another two decades.</p>
+<p>The Cut-9 project will push mining to an ultimate depth of 820 metres below surface, requiring new shaft infrastructure, advanced ground support systems, and ventilation upgrades capable of keeping working temperatures safe at extreme depths.</p>
+<h4>Employment and Local Procurement</h4>
+<p>Debswana has committed to maintaining its current 5,800-person workforce throughout the expansion and has ring-fenced P420 million of the project budget for Botswana-registered contractors and suppliers.</p>`},
+
+  'bob':{sec:'business',cat:'BUSINESS',color:'g8',icon:'bar-chart-2',org:'BSB',
+    title:'BSB Lists P500M Infrastructure Bond — Oversubscribed Within 6 Hours',date:'11 April 2026',
+    caption:'Botswana Stock Exchange trading floor on listing day of the BSB Infrastructure Bond.',
+    body:`<p>The Botswana Savings Bank (BSB) has successfully listed a P500 million infrastructure bond on the Botswana Stock Exchange, attracting bids totalling P1.4 billion within six hours of opening — a 2.8x oversubscription that broke the BSE record for fastest fully subscribed listing.</p>
+<p>The 10-year bond carries a coupon rate of 7.25% and is earmarked for on-lending to housing, SME premises, and public infrastructure projects. CEO Pelonomi Venson-Moitoi said the oversubscription reflected "deep investor appetite for quality Botswana-denominated assets."</p>
+<h4>Allocation</h4>
+<p>45% was allocated to Botswana pension funds and insurance companies, 30% to retail investors (the highest retail allocation in BSE history), and 25% to regional institutional investors from South Africa and Zambia.</p>`},
+
+  'cyber-tender':{sec:'tenders',cat:'TENDERS',color:'g2',icon:'shield',org:'DITSELA',
+    title:'DITSELA Issues P28M Tender for National Cyber Security Operations Centre',date:'15 March 2026',
+    caption:'Illustration of a modern cyber security operations centre.',
+    body:`<p>The Directorate of Intelligence and Security (DITSELA) has issued a P28 million competitive tender for the design, construction, and commissioning of a National Cyber Security Operations Centre (CSOC) to be based in Gaborone, with a target completion date of December 2026.</p>
+<h4>Scope of Work</h4>
+<p>The CSOC will provide 24/7 threat monitoring, incident response coordination, and cyber intelligence sharing across all government ministries and critical national infrastructure operators including BPC, Water Utilities Corporation, and BTC.</p>
+<p>Tenderers must demonstrate experience establishing at least two national-level CSOCs elsewhere on the continent, hold ISO 27001 certification, and submit a 70% citizen employment plan. The closing date for submissions is 30 April 2026.</p>`},
+
+  'border-tender':{sec:'tenders',cat:'TENDERS',color:'g3',icon:'truck',org:'BURS',
+    title:'BURS Calls for Bids on Kazungula Border Post Phase 2 Expansion',date:'28 January 2026',
+    caption:'Artist impression of Kazungula Phase 2 One Stop Border Post expansion.',
+    body:`<p>BURS, in coordination with the Ministry of Finance, has issued a tender for the Phase 2 expansion of the Kazungula One Stop Border Post — Botswana's busiest cargo crossing — with an estimated contract value of P95 million.</p>
+<h4>What Phase 2 Covers</h4>
+<p>Phase 2 will add a dedicated heavy vehicle processing lane capable of clearing 200 trucks per day (up from the current 80), a cold-chain inspection facility with 12 refrigerated bays, an expanded passenger terminal with biometric e-gates, and a 5,000 square metre bonded warehouse. Solar power generation will meet 80% of the facility's energy needs.</p>
+<p>Bids close 15 March 2026. Only citizen-owned or citizen-majority joint venture companies are eligible to bid.</p>`},
+
+  'bpc-tender':{sec:'tenders',cat:'TENDERS',color:'g4',icon:'zap',org:'BPC',
+    title:'BPC Invites Bids for 150MW Palapye Solar PV Plant',date:'03 February 2026',
+    caption:'Conceptual layout of the proposed Palapye Solar PV facility.',
+    body:`<p>Botswana Power Corporation (BPC) has issued an international competitive tender for a 150-megawatt solar photovoltaic power plant near Palapye — the second major renewable energy project commissioned by BPC following the successful Kgalagadi 300MW plant.</p>
+<h4>Tender Specifications</h4>
+<p>The contract covers EPC services, a 25-year Operation and Maintenance agreement, and a grid interconnection package. Bidders must have completed at least one solar PV project of 50MW or larger in Africa and provide a performance bond of 10% of the contract value.</p>
+<p>A preferential scoring of 30 points will be awarded for Botswana citizen subcontracting and employment commitments. Financial bids are due by 30 March 2026. BPC plans commercial operations in Q1 2028.</p>`},
+
+  'wuc-tender':{sec:'tenders',cat:'TENDERS',color:'g9',icon:'droplets',org:'WUC',
+    title:'Water Utilities Corporation Tenders P35M Smart Metering Contract',date:'20 February 2026',
+    caption:'WUC engineers installing a smart meter pilot in Gaborone North.',
+    body:`<p>Water Utilities Corporation (WUC) has issued a P35 million tender for the supply and installation of 120,000 smart water meters across Gaborone, Francistown, and Maun — a programme intended to reduce non-revenue water losses, which currently stand at an estimated 32% of total production.</p>
+<h4>Technical Requirements</h4>
+<p>Meters must be NFC and Bluetooth-enabled, compatible with WUC's existing AMR infrastructure, and capable of logging consumption data at 15-minute intervals. The contract includes a 5-year maintenance warranty and a real-time data dashboard for WUC's network operations centre.</p>
+<p>Citizen participation requirements: at least 40% of installation labour must be sourced locally from each district. Bids close 28 March 2026.</p>`}
+};
+
+const CAT_COLOR={'LATEST NEWS':'','BUSINESS':'green','TENDERS':'orange','FINANCE':'purple','TECHNOLOGY':'purple','TRADE':'red','FEATURE':'teal'};
+
+const VACANCIES=[
+  {org:'Botswana Power Corporation (BPC)',title:'Renewable Energy Project Manager',loc:'Gaborone',type:'Full-time',deadline:'30 April 2026',salary:'P85,000–P110,000/mo',desc:'Lead planning, procurement, and commissioning of BPC\'s solar and wind energy projects. Manage EPC contractors, coordinate with NERSA, and report to the Chief Energy Officer. Min 8 years experience in power project management required.'},
+  {org:'BURS',title:'Senior AI & Data Analytics Officer',loc:'Gaborone',type:'Full-time',deadline:'15 April 2026',salary:'P55,000–P75,000/mo',desc:'Develop and deploy machine learning models for VAT audit risk profiling, taxpayer segmentation, and revenue forecasting. Experience with Python, TensorFlow, and government data environments required.'},
+  {org:'Local Enterprise Authority (LEA)',title:'SME Sector Development Specialist – Agro-Processing',loc:'Francistown',type:'Full-time',deadline:'05 May 2026',salary:'P40,000–P55,000/mo',desc:'Design and deliver business development support programmes for agro-processing SMEs in northern Botswana. Includes market linkage, quality standards advisory, and export readiness coaching.'},
+  {org:'Botswana Post',title:'Digital Services Product Manager',loc:'Gaborone',type:'Full-time',deadline:'20 April 2026',salary:'P50,000–P65,000/mo',desc:'Own the product roadmap for Botswana Post\'s digital kiosk network and mobile app. Work with engineering, operations, and partner banks to deliver new features and improve customer NPS scores.'},
+  {org:'SEZA',title:'Investment Promotion Officer – Manufacturing',loc:'Gaborone',type:'Full-time',deadline:'01 May 2026',salary:'P38,000–P50,000/mo',desc:'Identify, target, and engage prospective investors for Botswana\'s Special Economic Zones focusing on manufacturing and light industrial sectors. Frequent travel to South Africa and the Gulf required.'},
+  {org:'Debswana Diamond Company',title:'Underground Mining Engineer – Cut-9 Project',loc:'Jwaneng',type:'Full-time',deadline:'10 May 2026',salary:'P90,000–P130,000/mo',desc:'Join the Cut-9 deep-level expansion team at Jwaneng Mine. Responsibilities include ground support design, blast scheduling, and geotechnical risk management at depths exceeding 700m. Rock mechanics certification required.'},
+  {org:'Botswana Savings Bank (BSB)',title:'Fixed Income Product Analyst',loc:'Gaborone',type:'Full-time',deadline:'25 April 2026',salary:'P45,000–P60,000/mo',desc:'Support structuring, pricing, and market-making for BSB\'s growing bond portfolio. CFA Level 2 or equivalent. Experience in African debt capital markets preferred.'},
+  {org:'Bank of Botswana',title:'Fintech Regulatory Specialist',loc:'Gaborone',type:'Contract (24 months)',deadline:'15 April 2026',salary:'P60,000–P80,000/mo',desc:'Develop the regulatory sandbox framework for fintech and AI-enabled financial services products. Work with NBFIRA and international standard-setters to draft proportionate regulations for Botswana\'s evolving digital finance sector.'}
+];
+
+const ARCHIVES_DATA=[
+  ...Object.entries(ARTS).map(([id,a])=>({type:'article',id,title:a.title,cat:a.cat,date:a.date,url:`https://bwparastatal.co.bw/article/${id}`})),
+  {type:'video',id:null,title:"Botswana's Economic Outlook 2026",cat:'Economy',date:'January 2026',url:'https://www.youtube.com/watch?v=5qanlirrRWs'},
+  {type:'video',id:null,title:"Inside Botswana's Diamond Mining Industry",cat:'Mining',date:'February 2026',url:'https://www.youtube.com/watch?v=GqFLaLbJUXI'},
+  {type:'video',id:null,title:'SEZs: Attracting Foreign Direct Investment',cat:'Investment',date:'March 2026',url:'https://www.youtube.com/watch?v=9bZkp7q19f0'},
+  {type:'video',id:null,title:'Botswana Stock Exchange: Q1 2026 Review',cat:'Finance',date:'March 2026',url:'https://www.youtube.com/watch?v=ScMzIvxBSi4'},
+  {type:'video',id:null,title:'LEA P50M SME Acceleration Fund Explained',cat:'SMEs',date:'February 2026',url:'https://www.youtube.com/watch?v=L_jWHffIx5E'},
+  {type:'video',id:null,title:"Cybersecurity: Protecting Botswana's Digital Future",cat:'Technology',date:'April 2026',url:'https://www.youtube.com/watch?v=3fumBcKC6RE'},
+  {type:'video',id:null,title:'BPC 300MW Kgalagadi Solar Plant Commission',cat:'Energy',date:'March 2026',url:'https://www.youtube.com/watch?v=ZZ5LpwO-An4'},
+  {type:'video',id:null,title:'Botswana Post Digital Transformation Journey',cat:'Postal Services',date:'January 2026',url:'https://www.youtube.com/watch?v=kJQP7kiw5Fk'},
+  {type:'video',id:null,title:'BURS Award Ceremony at Africa Expo 2026',cat:'Governance',date:'April 2026',url:'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+];
+
+/* ═══════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════ */
+let prevPage='home';
+let currentArticleId=null;
+
+function nav(pageId){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  document.querySelectorAll('[data-page]').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll(`[data-page="${pageId}"]`).forEach(b=>b.classList.add('active'));
+  if(pageId!=='article') prevPage=pageId;
+  window.scrollTo(0,0);
+  if(pageId==='archives') buildArchives(ARCHIVES_DATA);
+  if(pageId==='vacancies') buildVacancies();
+  if(document.getElementById('mobile-nav').classList.contains('open'))
+    document.getElementById('mobile-nav').classList.remove('open');
+}
+
+function goBack(){ nav(prevPage==='article'?'home':prevPage); }
+function toggleMob(){ document.getElementById('mobile-nav').classList.toggle('open'); }
+
+/* ═══════════════════════════════════════════════
+   CARD BUILDER
+═══════════════════════════════════════════════ */
+function buildCard(id,a){
+  const cc=CAT_COLOR[a.cat]||'';
+  return `<div class="n-card" onclick="openArticle('${id}')">
+    <div class="n-img-wrap">
+      <div class="n-img ${a.color}"><i data-lucide="${a.icon||'image'}" width="34" height="34" color="rgba(255,255,255,.1)"></i></div>
+      <span class="n-cat ${cc}">${a.cat}</span>
+    </div>
+    <div class="n-body">
+      <h3>${a.title}</h3>
+      <p class="dt"><i data-lucide="calendar" width="11" height="11"></i> ${a.date} · ${a.org}</p>
+    </div>
+  </div>`;
+}
+
+function buildSbItem(id,a){
+  return `<a class="sb-item" href="#" onclick="openArticle('${id}');return false;">
+    <div class="sb-thumb ${a.color}"><i data-lucide="${a.icon||'image'}" width="16" height="16" color="rgba(255,255,255,.18)"></i></div>
+    <div><div class="sb-item-t">${a.title}</div><div class="sb-item-d">${a.date}</div></div>
+  </a>`;
+}
+
+function populateHome(){
+  const bySection=sec=>Object.entries(ARTS).filter(([,a])=>a.sec===sec).slice(0,3);
+  document.getElementById('home-latest').innerHTML  = bySection('latest').map(([id,a])=>buildCard(id,a)).join('');
+  document.getElementById('home-business').innerHTML= bySection('business').map(([id,a])=>buildCard(id,a)).join('');
+  document.getElementById('home-tenders').innerHTML = bySection('tenders').map(([id,a])=>buildCard(id,a)).join('');
+  document.getElementById('sb-featured').innerHTML  = Object.entries(ARTS).slice(0,5).map(([id,a])=>buildSbItem(id,a)).join('');
+  lucide.createIcons();
+}
+
+function populateSections(){
+  ['latest','business','tenders'].forEach(sec=>{
+    const items=Object.entries(ARTS).filter(([,a])=>a.sec===sec);
+    document.getElementById('pg-'+sec).innerHTML=items.map(([id,a])=>buildCard(id,a)).join('');
+  });
+  lucide.createIcons();
+}
+
+/* ═══════════════════════════════════════════════
+   ARTICLE
+═══════════════════════════════════════════════ */
+function openArticle(id){
+  const a=ARTS[id]; if(!a) return;
+  currentArticleId=id;
+  document.getElementById('art-cat').textContent=a.cat;
+  document.getElementById('art-title').textContent=a.title;
+  document.getElementById('art-date').textContent=a.date+' · '+a.org;
+  document.getElementById('art-caption').textContent=a.caption;
+  document.getElementById('art-hero').className='art-hero '+a.color;
+  document.getElementById('art-hero').innerHTML=`<i data-lucide="${a.icon||'image'}" width="72" height="72" color="rgba(255,255,255,.08)"></i>`;
+  document.getElementById('art-body').innerHTML=a.body;
+  // related
+  const rel=Object.entries(ARTS).filter(([rid])=>rid!==id).slice(0,3);
+  document.getElementById('rel-grid').innerHTML=rel.map(([rid,ra])=>`
+    <a class="rel-card" href="#" onclick="openArticle('${rid}');return false;">
+      <div class="rel-img ${ra.color}"><i data-lucide="${ra.icon||'image'}" width="22" height="22" color="rgba(255,255,255,.1)"></i></div>
+      <h4>${ra.title}</h4><p class="dt">${ra.date}</p>
+    </a>`).join('');
+  // sidebar
+  document.getElementById('art-sb-list').innerHTML=Object.entries(ARTS).filter(([rid])=>rid!==id).slice(0,5).map(([rid,ra])=>buildSbItem(rid,ra)).join('');
+  // reset newsletter
+  document.getElementById('nl-email').value='';
+  document.getElementById('nl-success').classList.remove('show');
+  nav('article');
+  lucide.createIcons();
+}
+
+/* ═══════════════════════════════════════════════
+   NEWSLETTER
+═══════════════════════════════════════════════ */
+function subscribe(){
+  const email=document.getElementById('nl-email').value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById('nl-email').style.borderColor='#dc2626';
+    setTimeout(()=>document.getElementById('nl-email').style.borderColor='',1800);
+    return;
+  }
+  document.getElementById('nl-success').classList.add('show');
+  document.getElementById('nl-email').value='';
+}
+
+/* ═══════════════════════════════════════════════
+   SHARE (Native Web Share API + fallbacks)
+═══════════════════════════════════════════════ */
+function getShareData(){
+  const id=currentArticleId;
+  const a=id?ARTS[id]:null;
+  return {
+    title: a?a.title:'BW Parastatal',
+    text:  a?`${a.title} — ${a.date} · ${a.org}`:'Read the latest news from BW Parastatal',
+    url:   window.location.href
+  };
+}
+async function nativeShare(){
+  const data=getShareData();
+  if(navigator.share){
+    try{ await navigator.share(data); }catch(e){}
+  } else {
+    copyLink();
+  }
+}
+function shareToFb(){
+  window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'_blank','width=600,height=400');
+}
+function shareToTw(){
+  const d=getShareData();
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(d.title)+'&url='+encodeURIComponent(d.url),'_blank','width=600,height=400');
+}
+function shareToWa(){
+  const d=getShareData();
+  window.open('https://wa.me/?text='+encodeURIComponent(d.title+' '+d.url),'_blank');
+}
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    const btns=document.querySelectorAll('.sb-copy');
+    btns.forEach(b=>{b.textContent='✓ Copied!';b.style.background='#2ea043';});
+    setTimeout(()=>btns.forEach(b=>{
+      b.innerHTML='<i data-lucide="link" width="13" height="13"></i> Copy Link';
+      b.style.background='#555';
+      lucide.createIcons();
+    }),2000);
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   VACANCIES
+═══════════════════════════════════════════════ */
+function buildVacancies(){
+  document.getElementById('pg-vacancies').innerHTML=VACANCIES.map(j=>`
+    <div class="job-card">
+      <div class="job-org">${j.org}</div>
+      <div class="job-title">${j.title}</div>
+      <div class="job-meta">
+        <span><i data-lucide="map-pin" width="12" height="12"></i> ${j.loc}</span>
+        <span><i data-lucide="clock" width="12" height="12"></i> ${j.type}</span>
+        <span><i data-lucide="calendar" width="12" height="12"></i> Closes ${j.deadline}</span>
+        <span><i data-lucide="banknote" width="12" height="12"></i> ${j.salary}</span>
+      </div>
+      <p class="job-desc">${j.desc}</p>
+      <button class="apply-btn"><i data-lucide="send" width="13" height="13"></i> Apply Now</button>
+    </div>`).join('');
+  lucide.createIcons();
+}
+
+/* ═══════════════════════════════════════════════
+   ARCHIVES
+═══════════════════════════════════════════════ */
+let archFilter='all', archQ='';
+
+function buildArchives(data){
+  const rows=data.filter(r=>{
+    const t=archFilter==='all'||r.type===archFilter;
+    const q=archQ.toLowerCase();
+    const s=!q||r.title.toLowerCase().includes(q)||r.cat.toLowerCase().includes(q);
+    return t&&s;
+  });
+  document.getElementById('arch-tbody').innerHTML=rows.map((r,i)=>`
+    <tr>
+      <td style="color:#bbb;font-size:.74rem;text-align:center;">${i+1}</td>
+      <td><div class="arch-title-cell">${r.id
+        ?`<a href="#" onclick="openArticle('${r.id}');return false;">${r.title}</a>`
+        :r.title}</div></td>
+      <td style="font-size:.78rem;color:#777;white-space:nowrap;">${r.cat}</td>
+      <td><span class="type-badge ${r.type==='video'?'badge-vid':'badge-art'}">
+        ${r.type==='video'
+          ?'<i class="fas fa-play" style="font-size:.58rem;"></i> Video'
+          :'<i class="fas fa-file-alt" style="font-size:.58rem;"></i> Article'}
+      </span></td>
+      <td style="font-size:.77rem;color:#777;white-space:nowrap;">${r.date}</td>
+      <td><a class="arch-link" href="${r.url}" target="_blank" rel="noopener">
+        <i data-lucide="external-link" width="12" height="12"></i>
+        ${r.url.replace('https://','').substring(0,44)}${r.url.length>52?'…':''}
+      </a></td>
+    </tr>`).join('');
+  lucide.createIcons();
+}
+function filterArch(t,btn){
+  archFilter=t;
+  document.querySelectorAll('.filt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildArchives(ARCHIVES_DATA);
+}
+function searchArch(v){ archQ=v; buildArchives(ARCHIVES_DATA); }
+
+/* ═══════════════════════════════════════════════
+   SEARCH OVERLAY
+═══════════════════════════════════════════════ */
+function openSearch(){
+  document.getElementById('search-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('s-input').focus(),60);
+  document.getElementById('s-results').innerHTML=defaultResults();
+  lucide.createIcons();
+}
+function closeSearch(){
+  document.getElementById('search-overlay').classList.remove('open');
+  document.getElementById('s-input').value='';
+  document.getElementById('s-results').innerHTML='';
+  document.body.style.overflow='';
+}
+document.getElementById('search-overlay').addEventListener('click',function(e){if(e.target===this)closeSearch();});
+
+function defaultResults(){
+  const items=Object.entries(ARTS).slice(0,5);
+  return `<div class="s-lbl">Recent Articles</div>`+items.map(([id,a])=>srCard(id,a,'article')).join('');
+}
+function srCard(id,a,type,url=''){
+  return `<a class="s-row" href="${url||'#'}" ${url?'target="_blank" rel="noopener"':''}
+    onclick="${id?`closeSearch();openArticle('${id}');return false;`:''}">
+    <div class="s-thumb ${a.color||'g1'}"><i data-lucide="${type==='video'?'play-circle':(a.icon||'image')}" width="20" height="20" color="rgba(255,255,255,.2)"></i></div>
+    <div>
+      <div class="s-rc">${type==='video'?'VIDEO · ':''}${a.cat||''}</div>
+      <div class="s-rt">${a.title}</div>
+      <div class="s-rd">${a.date||''}</div>
+    </div>
+  </a>`;
+}
+function hl(t,q){
+  if(!q)return t;
+  const i=t.toLowerCase().indexOf(q.toLowerCase());
+  if(i<0)return t;
+  return t.substring(0,i)+'<mark>'+t.substring(i,i+q.length)+'</mark>'+t.substring(i+q.length);
+}
+function runSearch(val){
+  const q=val.trim();
+  const el=document.getElementById('s-results');
+  if(!q){el.innerHTML=defaultResults();lucide.createIcons();return;}
+  const aHits=Object.entries(ARTS).filter(([,a])=>
+    a.title.toLowerCase().includes(q.toLowerCase())||
+    a.cat.toLowerCase().includes(q.toLowerCase())||
+    a.org.toLowerCase().includes(q.toLowerCase())||
+    (a.body&&a.body.toLowerCase().includes(q.toLowerCase()))
+  );
+  const vHits=ARCHIVES_DATA.filter(r=>r.type==='video'&&(
+    r.title.toLowerCase().includes(q.toLowerCase())||r.cat.toLowerCase().includes(q.toLowerCase())
+  ));
+  if(!aHits.length&&!vHits.length){
+    el.innerHTML=`<p class="s-none">No results for "<strong style="color:#fff">${q}</strong>". Try another keyword.</p>`;
+    return;
+  }
+  let html='';
+  if(aHits.length){
+    html+=`<div class="s-lbl">Articles (${aHits.length})</div>`;
+    html+=aHits.slice(0,8).map(([id,a])=>{const c={...a,title:hl(a.title,q)};return srCard(id,c,'article');}).join('');
+  }
+  if(vHits.length){
+    html+=`<div class="s-lbl" style="margin-top:18px">Videos (${vHits.length})</div>`;
+    html+=vHits.slice(0,4).map(r=>`
+      <a class="s-row" href="${r.url}" target="_blank" rel="noopener">
+        <div class="s-thumb" style="background:linear-gradient(135deg,#300,#600);border-radius:3px;"><i data-lucide="play-circle" width="22" height="22" color="rgba(255,80,80,.6)"></i></div>
+        <div>
+          <div class="s-rc" style="color:#ff5555;">VIDEO · ${r.cat}</div>
+          <div class="s-rt">${hl(r.title,q)}</div>
+          <div class="s-rd">${r.date}</div>
+        </div>
+      </a>`).join('');
+  }
+  el.innerHTML=html;
+  lucide.createIcons();
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  lucide.createIcons();
+  populateHome();
+  populateSections();
+  nav('home');
+});
 
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Hjtb9Qotuf_Cdo7pYmgFs";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-
-    </script>
+</script>
 </body>
 </html>
-
-
